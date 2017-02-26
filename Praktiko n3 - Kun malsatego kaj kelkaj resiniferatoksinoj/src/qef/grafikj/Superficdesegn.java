@@ -50,7 +50,7 @@ public class Superficdesegn extends Canvas {
 		
 		DebugDesegn.definigad(g);
 		
-		g.setColor(Color.BLACK);//mi havas taskon relatita al tiu
+		DebugDesegn.setColor(Color.BLACK);//mi havas taskon relatita al tiu
 		g.setFont(Konstantj.KUTIM_FONT);
 		DebugDesegn.desegnRectangle(0, 0, Konstantj.plejfenestrLargx, Konstantj.plejfenestrAlt);
 		
@@ -59,10 +59,10 @@ public class Superficdesegn extends Canvas {
 		
 		sp.desegn();
 		
-		g.setColor(Konstantj.ANTAWDEFINIT_KOLOR);
+		DebugDesegn.setColor(Konstantj.ANTAWDEFINIT_KOLOR);
 		
-		DebugDesegn.desegnString("APS: " + Konstantj.aps, 10, 10);
-		DebugDesegn.desegnString("FPS: " + Konstantj.fps, 10, 20);
+		DebugDesegn.desegnString("APS: " + Konstantj.aps, 10, 20);
+		DebugDesegn.desegnString("FPS: " + Konstantj.fps, 10, 30);
 		
 		DebugDatum.addDatumn("RX: " + muy.posicin().x);
 		DebugDatum.addDatumn("RY: " + muy.posicin().y);

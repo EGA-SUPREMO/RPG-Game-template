@@ -6,6 +6,7 @@ import java.util.Iterator;
 public class DebugDatum {
 	
 	private static ArrayDeque<String> datumjToDesegn = new ArrayDeque<>(25);
+	private static final int ALT_LITER = 10;
 	
 	public static void addDatumn(final String datum) {
 		datumjToDesegn.add(datum);
@@ -19,13 +20,13 @@ public class DebugDatum {
 		
 		Iterator<String> it = datumjToDesegn.iterator();
 		
-		int counter = 2;//jam estas desegnita la fps kaj aps
+		int counter = 3;//jam estas desegnita la fps kaj aps
 		
 		while(it.hasNext()) {
 			
 			counter++;
 			
-			DebugDesegn.desegnString(it.next(), 10, counter * 10);
+			DebugDesegn.desegnString(it.next(), 10, counter * ALT_LITER);
 			
 		}
 		

@@ -10,6 +10,8 @@ import qef.sprite.SpriteFoli;
 
 public class Ludant extends Vivazh {
 	
+	private int experienc = 100;
+	
 	public Ludant(final Map map) {
 		super(map, 0, new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32, Transparency.TRANSLUCENT, 128));
 	}
@@ -20,9 +22,8 @@ public class Ludant extends Vivazh {
 		yangxResistencn();
 		mov();
 		anim(movante);
-		
 	}
-
+	
 	private void mov() {
 		
 		boolean[] kolicie = {qnekolicie(0), qnekolicie(1), qnekolicie(2), qnekolicie(3), qena()};
@@ -89,7 +90,7 @@ public class Ludant extends Vivazh {
 		else if(restarigad == Konstantj.plejRestarigad && resistenc < Konstantj.plejResistenc)
 			resistenc++;
 	}
-
+	
 	private void yangxRapidec() {
 		
 		if(Kontrolperant.klavar.kuri && resistenc > 0) {
@@ -103,7 +104,7 @@ public class Ludant extends Vivazh {
 		}
 		
 	}
-
+	
 	@Override
 	public void desegn() {
 		
@@ -116,6 +117,10 @@ public class Ludant extends Vivazh {
 		//g.fillRect(0, 0, (int) (Konstantj.fenestrLargx/1.7), (int) (Konstantj.fenestrAlt/1.7));
 		//((Graphics2D)g).drawImage(sprite.spritejn(0, direkt), AffineTransform.getRotateInstance(x/16, 64,64), null);
 		
+	}
+	
+	public int experiencn() {
+		return experienc;
 	}
 	
 }

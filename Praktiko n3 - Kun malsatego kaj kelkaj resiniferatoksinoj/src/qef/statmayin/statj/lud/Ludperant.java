@@ -5,7 +5,6 @@ import qef.QefObjektj;
 import qef.ilj.DebugDatum;
 import qef.ilj.DebugDesegn;
 import qef.statmayin.Statlud;
-import qef.uzantinterfac.Submenu;
 
 public class Ludperant implements Statlud {
 	
@@ -36,6 +35,7 @@ public class Ludperant implements Statlud {
 		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.ludant.mapn().yLudantn());
 		DebugDatum.addDatumn("OPF: " + DebugDesegn.objektjDesegnitan());
 		
+		QefObjektj.submenu.desegn();
 		//Submenu.desegnBarn(20, QefObjektj.ludant.resistencn(), Konstantj.plejResistenc, 5);
 		
 	}

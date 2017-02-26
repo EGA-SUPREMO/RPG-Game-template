@@ -52,7 +52,9 @@ public abstract class Vivazh implements Estazh {
 	private boolean qkur;					//vcio de la Animacion*/
 	private Map map;
 	protected int largxVivazh, altVivazh;
-	protected int resistenc = Konstantj.plejResistenc, restarigad = 0;//resistenco kaj re-starigado
+	protected Integer resistenc = Konstantj.plejResistenc, restarigad = 0;//resistenco kaj re-starigado
+	protected int viv;
+	private int damagx;
 
 	public Vivazh(final Map map,  final int ordenSpec, final SpriteFoli sprite) {
 		
@@ -70,6 +72,8 @@ public abstract class Vivazh implements Estazh {
 		this.map = map;
 		this.x = map.xLudantn();
 		this.y = map.yLudantn();
+		this.viv = 100;
+		this.damagx = 100;
 		this.LIMJ[0] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt - altVivazh,
 				Konstantj.SPRITELARGX - 2, 1);
 		this.LIMJ[1] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt + altVivazh - 1,
@@ -83,8 +87,8 @@ public abstract class Vivazh implements Estazh {
 		
 	}
 	
-	public Vivazh(final Map map, final int ordenSpec, final float rapidec, final int largxVivazh,final int altVivazh,
-			final Rectangle[] limj, final SpriteFoli sprite) {
+	public Vivazh(final Map map, final int ordenSpec, final float rapidec, final int largxVivazh, final int altVivazh, final
+			int viv, final Rectangle[] limj, final SpriteFoli sprite) {
 		
 		this.largxVivazh = largxVivazh;
 		this.altVivazh = altVivazh;
@@ -95,6 +99,7 @@ public abstract class Vivazh implements Estazh {
 		this.direkt = 1;
 		this.frekvenciAnimaci = 10;
 		this.map = map;
+		this.viv = viv;
 		for(int i = 0; i < limj.length;i++)
 			this.LIMJ[i] = limj[i];
 		
@@ -334,13 +339,20 @@ public abstract class Vivazh implements Estazh {
 	public void rapidec(final float rapidec) {
 		this.rapidec = rapidec;
 	}
+	
+	public int damagxn() {
+		return damagx;
+	}
+	public int vivn() {
+		return viv;
+	}
 	public int largxVivazhn() {
 		return largxVivazh;
 	}
 	public int altVivazhn() {
 		return altVivazh;
 	}
-	public int resistencn() {
+	public Integer resistencn() {
 		return resistenc;
 	}
 	public int restarigadn() {
