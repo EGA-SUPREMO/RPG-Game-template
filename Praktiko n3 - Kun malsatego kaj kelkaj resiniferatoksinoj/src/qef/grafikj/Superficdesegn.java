@@ -57,6 +57,7 @@ public class Superficdesegn extends Canvas {
 		if(Konstantj.faktorX != 1 || Konstantj.faktorY != 1)
 			((Graphics2D) g).scale(Konstantj.faktorX, Konstantj.faktorY);
 		
+		DebugDesegn.setColor(Konstantj.ANTAWDEFINIT_KOLOR);
 		sp.desegn();
 		
 		DebugDesegn.setColor(Konstantj.ANTAWDEFINIT_KOLOR);
@@ -66,13 +67,6 @@ public class Superficdesegn extends Canvas {
 		
 		DebugDatum.addDatumn("RX: " + muy.posicin().x);
 		DebugDatum.addDatumn("RY: " + muy.posicin().y);
-		
-		if(Kontrolperant.klavar.debug) {
-			
-			DebugDesegn.desegnKolicijn();
-			DebugDatum.desegn();
-			
-		}
 		
 		DebugDatum.malplenigDatumjn();
 		

@@ -14,6 +14,8 @@ public class Submenu {
 	private static Rectangle are = new Rectangle(0, ludAlt - altMenu, ludLargx, ludAlt);
 	private Rectangle MargxenAre;
 	private Verg[] vergj;
+	private Elektebl[] elekteblj;
+	private static int kvantElektebl = 2;
 	
 	public Submenu() {
 		
@@ -26,11 +28,17 @@ public class Submenu {
 		vergj[2] = new Verg(Color.GREEN, Text.EXP);
 		vergj[3] = new Verg(Color.RED, Text.ATK);
 		
+		elekteblj = new Elektebl[2];
+		for(int i = 0; i < kvantElektebl; i++) {
+			elekteblj[i] = new Elektebl(i);
+		}
+		
 	}
 	
 	public void desegn() {
 		desegnSubmenufonn();
-		desegnSubmenuAzhjn();
+		desegnVergjn();
+		desegnElektebljn();
 	}
 	
 	private void desegnSubmenufonn() {
@@ -40,15 +48,22 @@ public class Submenu {
 		DebugDesegn.desegnRectangle(MargxenAre);
 	}
 	
-	private void desegnSubmenuAzhjn() {
+	private void desegnVergjn() {
 		for(int i = 0; i < vergj.length; i++)
 			vergj[i].desegn();
 	}
 	
+	private void desegnElektebljn() {
+		for(int i = 0; i < elekteblj.length; i++) 
+			elekteblj[i].desegn();;
+	}
+	
+	static int kvantElektebln() {
+		return kvantElektebl;
+	}
 	static int areXn() {
 		return are.x;
 	}
-	
 	static int areYn() {
 		return are.y;
 	}

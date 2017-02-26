@@ -5,6 +5,7 @@ import java.awt.event.KeyAdapter;
 
 import qef.Konstantj;
 import qef.QefObjektj;
+import qef.uzantinterfac.Text;
 
 public class Klavar extends KeyAdapter {
 
@@ -63,7 +64,7 @@ public class Klavar extends KeyAdapter {
 			case Konstantj.REKOMENCI:
 				QefObjektj.ludant.setX(480);
 				QefObjektj.ludant.setY(280);
-				QefObjektj.ludant.setResistenc(Konstantj.plejResistenc);
+				Text.RES.mlnuligKvantn();
 				break;
 		}
 	}

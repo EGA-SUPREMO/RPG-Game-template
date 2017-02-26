@@ -52,7 +52,7 @@ public abstract class Vivazh implements Estazh {
 	private boolean qkur;					//vcio de la Animacion*/
 	private Map map;
 	protected int largxVivazh, altVivazh;
-	protected Integer resistenc = Konstantj.plejResistenc, restarigad = 0;//resistenco kaj re-starigado
+	protected Integer /*resistenc = Konstantj.plejResistenc,*/ restarigad = 0;//resistenco kaj re-starigado
 	protected int viv;
 	private int damagx;
 
@@ -352,9 +352,9 @@ public abstract class Vivazh implements Estazh {
 	public int altVivazhn() {
 		return altVivazh;
 	}
-	public Integer resistencn() {
+/*	public Integer resistencn() {
 		return resistenc;
-	}
+	}*/
 	public int restarigadn() {
 		return restarigad;
 	}
@@ -394,8 +394,8 @@ public abstract class Vivazh implements Estazh {
 	public void setY(final int y) {
 		this.y = y;
 	}
-	public void setResistenc(final int resistenc) {
+/*	public void setResistenc(final int resistenc) {
 		this.resistenc = resistenc;
-	}
+	}*/
 	
 }

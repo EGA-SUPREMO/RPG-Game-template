@@ -7,6 +7,7 @@ import qef.ilj.DebugDesegn;
 import qef.kontrolj.Kontrolperant;
 import qef.map.Map;
 import qef.sprite.SpriteFoli;
+import qef.uzantinterfac.Text;
 
 public class Ludant extends Vivazh {
 	
@@ -83,20 +84,27 @@ public class Ludant extends Vivazh {
 		}
 		
 	}
-	
+	/*
 	private void yangxResistencn() {
 		if(restarigad < Konstantj.plejRestarigad && !Kontrolperant.klavar.kuri)
 			restarigad++;
 		else if(restarigad == Konstantj.plejRestarigad && resistenc < Konstantj.plejResistenc)
 			resistenc++;
+	}*/
+	
+	private void yangxResistencn() {
+		if(restarigad < Konstantj.plejRestarigad && !Kontrolperant.klavar.kuri)
+			restarigad++;
+		else if(restarigad == Konstantj.plejRestarigad && Text.RES.kvantn() < Konstantj.plejResistenc)
+			Text.RES.pliigKvantn();
 	}
 	
 	private void yangxRapidec() {
 		
-		if(Kontrolperant.klavar.kuri && resistenc > 0) {
+		if(Kontrolperant.klavar.kuri && Text.RES.kvantn() > 0) {
 			rapidec = 2.8f;
 			frekvenciAnimaci = 2;
-			resistenc--;
+			Text.RES.mlpliigKvantn();;
 			restarigad = 0;
 		}else {
 			rapidec = 0.7f;
