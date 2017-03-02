@@ -21,7 +21,7 @@ public class DebugDesegn {
 		objektjDesegnita++;
 		g.drawString(str, x, y);
 	}
-	
+
 	public static void desegnRectangle(final Rectangle rect) {
 		objektjDesegnita++;
 		g.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -39,6 +39,30 @@ public class DebugDesegn {
 	
 	public static void desegnMargxenRectangle(final int x, final int y, final int largx, final int alt) {
 		objektjDesegnita++;
+		g.drawRect(x, y, largx, alt);
+	}
+	
+	public static void desegnRectangle(final Rectangle rect, final Color kolor) {
+		objektjDesegnita++;
+		g.setColor(kolor);
+		g.fillRect(rect.x, rect.y, rect.width, rect.height);
+	}
+	
+	public static void desegnMargxenRectangle(final Rectangle rect, final Color kolor) {
+		objektjDesegnita++;
+		g.setColor(kolor);
+		g.drawRect(rect.x, rect.y, rect.width, rect.height);
+	}
+	
+	public static void desegnRectangle(final int x, final int y, final int largx, final int alt, final Color kolor) {
+		objektjDesegnita++;
+		g.setColor(kolor);
+		g.fillRect(x, y, largx, alt);
+	}
+	
+	public static void desegnMargxenRectangle(final int x, final int y, final int largx, final int alt, final Color kolor) {
+		objektjDesegnita++;
+		g.setColor(kolor);
 		g.drawRect(x, y, largx, alt);
 	}
 	

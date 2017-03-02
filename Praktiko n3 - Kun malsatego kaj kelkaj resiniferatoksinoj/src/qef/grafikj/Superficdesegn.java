@@ -51,8 +51,9 @@ public class Superficdesegn extends Canvas {
 		DebugDesegn.definigad(g);
 		
 		DebugDesegn.setColor(Color.BLACK);//mi havas taskon relatita al tiu
-		g.setFont(Konstantj.KUTIM_FONT);
 		DebugDesegn.desegnRectangle(0, 0, Konstantj.plejfenestrLargx, Konstantj.plejfenestrAlt);
+		
+		g.setFont(Konstantj.KUTIM_FONT);
 		
 		if(Konstantj.faktorX != 1 || Konstantj.faktorY != 1)
 			((Graphics2D) g).scale(Konstantj.faktorX, Konstantj.faktorY);
