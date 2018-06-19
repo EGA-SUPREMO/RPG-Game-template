@@ -45,13 +45,11 @@ public class Verg {
 /*		System.out.println("REPORTANDOSE " + this + " CON LAS CONDICIONES DE " + posici.y + " Y " + text.name() + " EN LA " +
 				text.ordinal() + " ROTACION, PERIDOD FUERA");*/
 		
-		DebugDesegn.setColor(kolor);
-		DebugDesegn.desegnRectangle(posici.x, posici.y, text.kvantn() * largx / text.plejkvantn(), GRANDEC_VERTIKAL);
+		DebugDesegn.desegnRectangle(posici.x, posici.y, text.kvantn() * largx / text.plejkvantn(), GRANDEC_VERTIKAL, kolor);
 		
 		posici.y += GRANDEC_VERTIKAL;
 		
-		DebugDesegn.setColor(darkKolor);
-		DebugDesegn.desegnRectangle(posici.x, posici.y, text.kvantn() * largx / text.plejkvantn(), GRANDEC_VERTIKAL);
+		DebugDesegn.desegnRectangle(posici.x, posici.y, text.kvantn() * largx / text.plejkvantn(), GRANDEC_VERTIKAL, darkKolor);
 		
 		posici.y -= GRANDEC_VERTIKAL;
 		

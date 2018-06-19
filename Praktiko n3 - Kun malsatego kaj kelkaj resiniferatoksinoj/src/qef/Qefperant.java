@@ -34,6 +34,7 @@ public class Qefperant {
 	}
 	
 	private void gxisdatig() {
+		statp.yangxNunStatn();
 		statp.gxisdatig();
 		superfic.muyn().gxisdatig();
 	}
