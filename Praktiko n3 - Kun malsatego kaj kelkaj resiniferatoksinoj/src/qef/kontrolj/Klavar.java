@@ -15,7 +15,6 @@ public class Klavar extends KeyAdapter {
 	public Klav mldextr = new Klav();
 	public boolean kuri = false;
 	public boolean debug = false;
-	public boolean aktivInventari = false;
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -37,9 +36,6 @@ public class Klavar extends KeyAdapter {
 				break;
 			case Konstantj.DEBUG:
 				debug = !debug;
-				break;
-			case Konstantj.AKTIV_INVENTARI:
-				aktivInventari = !aktivInventari;
 				break;
 		}
 	}

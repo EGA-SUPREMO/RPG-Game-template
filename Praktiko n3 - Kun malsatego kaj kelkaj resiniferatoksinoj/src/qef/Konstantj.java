@@ -18,6 +18,8 @@ public abstract class Konstantj {
 	public static int ludLargx = 640;
 	public static int ludAlt = 360;
 	
+	public final static int altSubmenu = 64;//La alto de la submenu
+	
 	public static int plejfenestrLargx = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static int plejfenestrAlt = Toolkit.getDefaultToolkit().getScreenSize().height;
 	
@@ -40,7 +42,6 @@ public abstract class Konstantj {
 	public final static int ELIRI = KeyEvent.VK_ESCAPE;
 	public final static int REKOMENCI = KeyEvent.VK_R;
 	public final static int DEBUG = KeyEvent.VK_F1;
-	public final static int AKTIV_INVENTARI = KeyEvent.VK_E;
 	
 	public static int qiufps = 0, fps = 0, aps = 0, sekundjPasita = 0;
 	

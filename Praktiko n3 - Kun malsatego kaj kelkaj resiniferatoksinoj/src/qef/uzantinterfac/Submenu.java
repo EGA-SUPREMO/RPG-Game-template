@@ -3,6 +3,7 @@ package qef.uzantinterfac;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import qef.Konstantj;
 import qef.ilj.DebugDesegn;
 
 import static qef.Konstantj.ludAlt;
@@ -10,8 +11,7 @@ import static qef.Konstantj.ludLargx;
 
 public class Submenu {
 	
-	private final static int altMenu = 64;
-	private static Rectangle are = new Rectangle(0, ludAlt - altMenu, ludLargx, ludAlt);
+	private static Rectangle are = new Rectangle(0, ludAlt - Konstantj.altSubmenu, ludLargx, ludAlt);
 	private Rectangle MargxenAre;
 	private Verg[] vergj;
 	private Elektebl[] elekteblj;

@@ -26,7 +26,8 @@ public class Elektebl {
 	
 	public void desegn() {
 		
-		DebugDesegn.desegnRectangle(rect, kolor);
+		DebugDesegn.setColor(kolor);
+		DebugDesegn.desegnRectangle(rect);
 		DebugDesegn.desegnString(text, rect.x + DUON_GRANDEC - 3, rect.y + GRANDEC + 10);
 		
 	}
