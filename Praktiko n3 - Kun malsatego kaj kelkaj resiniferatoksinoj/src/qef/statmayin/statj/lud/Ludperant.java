@@ -21,7 +21,9 @@ public class Ludperant implements Statlud {
 		
 		QefObjektj.map.desegn();
 		QefObjektj.ludant.desegn();
-
+		
+		QefObjektj.malhelec.desegn();
+		
 		DebugDatum.addDatumn("X: " + QefObjektj.ludant.xn());
 		DebugDatum.addDatumn("Y: " + QefObjektj.ludant.yn());
 		DebugDatum.addDatumn("Sekundoj pasitaj: " + Konstantj.sekundjPasita);

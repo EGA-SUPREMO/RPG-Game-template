@@ -18,6 +18,8 @@ public abstract class Konstantj {
 	public static int ludLargx = 640;
 	public static int ludAlt = 360;
 	
+	public final static int altSubmenu = 64;//La alto de la submenu
+	
 	public static int plejfenestrLargx = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static int plejfenestrAlt = Toolkit.getDefaultToolkit().getScreenSize().height;
 	
