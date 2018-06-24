@@ -9,11 +9,13 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import qef.Konstantj;
+import qef.QefObjektj;
 import qef.ilj.DebugDatum;
 import qef.ilj.DebugDesegn;
 import qef.kontrolj.Kontrolperant;
 import qef.kontrolj.Muy;
 import qef.statmayin.Statperant;
+import qef.uzantinterfac.Text;
 
 public class Superficdesegn extends Canvas {
 	
@@ -65,6 +67,27 @@ public class Superficdesegn extends Canvas {
 		
 		DebugDesegn.desegnString("APS: " + Konstantj.aps, 10, 20);
 		DebugDesegn.desegnString("FPS: " + Konstantj.fps, 10, 30);
+		
+		DebugDatum.addDatumn("X: " + QefObjektj.ludant.xn());
+		DebugDatum.addDatumn("Y: " + QefObjektj.ludant.yn());
+		DebugDatum.addDatumn("Sekundoj pasitaj: " + Konstantj.sekundjPasita);
+		try {
+		DebugDatum.addDatumn("Promedio de fps po sekundo: " + Konstantj.qiufps/Konstantj.sekundjPasita);
+		}catch(ArithmeticException e) {/*e.printStackTrace();*/}
+		DebugDatum.addDatumn("Res: " + Text.RES.kvantn());
+		DebugDatum.addDatumn("Restarigado: " + QefObjektj.ludant.restarigadn());
+		DebugDatum.addDatumn("Faktoro X: " + Konstantj.faktorX);
+		DebugDatum.addDatumn("Faktoro Y: " + Konstantj.faktorY);
+		DebugDatum.addDatumn("Venonta mapo: " + QefObjektj.ludant.mapn().venontMapn());
+		DebugDatum.addDatumn("Komenca posicio X: " + QefObjektj.ludant.mapn().xLudantn());
+		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.ludant.mapn().yLudantn());
+		DebugDatum.addDatumn("OPF: " + DebugDesegn.objektjDesegnitan());
+		
+		if(Kontrolperant.klavar.debug) {
+			if(sp.qStatludn())
+				DebugDesegn.desegnKolicijn();
+			DebugDatum.desegn();
+		}
 		
 		DebugDatum.addDatumn("RX: " + muy.posicin().x);
 		DebugDatum.addDatumn("RY: " + muy.posicin().y);
