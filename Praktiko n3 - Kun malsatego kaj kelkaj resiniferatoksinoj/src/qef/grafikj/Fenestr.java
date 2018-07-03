@@ -26,11 +26,11 @@ public class Fenestr extends JFrame implements WindowFocusListener {
 		
 		icon = new ImageIcon(YargxilAzhj.yargxBildn("/icons/icon.png", Transparency.TRANSLUCENT));
 		
-		agordFenestr(sd);
+		agordFenestrn(sd);
 		
 	}
 
-	private void agordFenestr(final Superficdesegn sd) {
+	private void agordFenestrn(final Superficdesegn sd) {
 		
 		setTitle(titol);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

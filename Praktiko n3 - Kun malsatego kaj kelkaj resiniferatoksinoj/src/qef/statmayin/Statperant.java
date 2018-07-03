@@ -1,23 +1,25 @@
 package qef.statmayin;
 
 import qef.kontrolj.Kontrolperant;
+import qef.kontrolj.Muy;
 import qef.statmayin.statj.lud.Ludperant;
 import qef.statmayin.statj.ludMenu.Menuperant;
 
 public class Statperant {
 	
+	
 	private Statlud[] statj;
 	private Statlud nunStat;
 	
-	public Statperant() {
-		ekStatj();
+	public Statperant(final Muy muy) {
+		ekStatj(muy);
 		definNunStatn();
 	}
 
-	private void ekStatj() {
+	private void ekStatj(final Muy muy) {
 		statj = new Statlud[2];
 		statj[0] = new Ludperant();
-		statj[1] = new Menuperant();
+		statj[1] = new Menuperant(muy);
 		//Aldunu pli da statoj kaj pliigu la nombron
 	}
 	

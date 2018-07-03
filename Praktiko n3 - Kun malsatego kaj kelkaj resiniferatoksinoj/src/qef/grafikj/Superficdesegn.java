@@ -34,6 +34,7 @@ public class Superficdesegn extends Canvas {
 		setCursor(muy.kursorn());
 		setPreferredSize(new Dimension(largx, alt));
 		addKeyListener(Kontrolperant.klavar);
+		addMouseListener(muy);
 		setFocusable(true);
 		requestFocus();
 		
@@ -83,14 +84,16 @@ public class Superficdesegn extends Canvas {
 		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.ludant.mapn().yLudantn());
 		DebugDatum.addDatumn("OPF: " + DebugDesegn.objektjDesegnitan());
 		
+		DebugDatum.addDatumn("RX: " + muy.posicin().x);
+		DebugDatum.addDatumn("RY: " + muy.posicin().y);
+		DebugDatum.addDatumn("Reskalita RX: " + muy.rectangleReskalitPosicin().x);
+		DebugDatum.addDatumn("Reskalita RY: " + muy.rectangleReskalitPosicin().y);
+		
 		if(Kontrolperant.klavar.debug) {
 			if(sp.qStatludn())
 				DebugDesegn.desegnKolicijn();
 			DebugDatum.desegn();
 		}
-		
-		DebugDatum.addDatumn("RX: " + muy.posicin().x);
-		DebugDatum.addDatumn("RY: " + muy.posicin().y);
 		
 		DebugDatum.malplenigDatumjn();
 		

@@ -48,7 +48,7 @@ public class Qefperant {
 	private void definigad() {
 		superfic = new Superficdesegn(largx, alt);
 		new Fenestr(titol, superfic);
-		statp = new Statperant();
+		statp = new Statperant(superfic.muyn());
 	}
 	
 	private void ekQefBukln() {

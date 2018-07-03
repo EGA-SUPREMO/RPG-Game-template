@@ -54,4 +54,10 @@ public abstract class Konstantj {
 	
 	public final static Color ANTAWDEFINIT_KOLOR = Color.BLUE;
 	
+	public final static Color KOLOR_SUPR_BANNER = Color.CYAN;
+	public final static Color KOLOR_SUB_BANNER = Color.CYAN.darker();
+	public final static Color FONKOLOR = Color.WHITE;
+	
+	public final static Color AKTIV_ETIKED_BOTON_KOLOR = KOLOR_SUB_BANNER.darker();
+	
 }
