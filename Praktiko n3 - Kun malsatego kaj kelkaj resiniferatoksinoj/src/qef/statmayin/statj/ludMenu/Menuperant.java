@@ -1,5 +1,6 @@
 package qef.statmayin.statj.ludMenu;
 
+import qef.grafikj.Superficdesegn;
 import qef.kontrolj.Muy;
 import qef.statmayin.Statlud;
 
@@ -11,12 +12,12 @@ public class Menuperant implements Statlud {
 	private final MenuSekci[] sekcij;
 	private MenuSekci aktivsekci;
 	
-	public Menuperant(Muy muyo) {
+	public Menuperant(final Muy muyo, final Superficdesegn sd) {
 		muy = muyo;
 		
 		menu = new MenuStrutur();
 		sekcij = new MenuSekci[2];
-		sekcij[0] = new InventarMenu(menu.fonn());
+		sekcij[0] = new InventarMenu(menu.fonn(), sd);
 		sekcij[1] = new ArmazhMenu();
 		
 		aktivsekci = sekcij[0];

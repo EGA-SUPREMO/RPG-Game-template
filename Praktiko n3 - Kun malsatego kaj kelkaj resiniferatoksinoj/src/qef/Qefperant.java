@@ -9,11 +9,12 @@ public class Qefperant {
 	private boolean funkciante;//gxi devas esti volatile kiam mi aldonos alian threads-on
 	
 	private String titol;
+	
 	private int largx, alt;
 	
 //	private Fenestr fenestr;
-	private Superficdesegn superfic;
 	private Statperant statp;
+	public static Superficdesegn superfic;
 	
 	public static void main(String[] args) {
 		Qefperant qp = new Qefperant("Kun malsatego kaj kelkaj resiniferatoksinoj...", Konstantj.plejfenestrLargx,
@@ -48,7 +49,7 @@ public class Qefperant {
 	private void definigad() {
 		superfic = new Superficdesegn(largx, alt);
 		new Fenestr(titol, superfic);
-		statp = new Statperant(superfic.muyn());
+		statp = new Statperant(superfic.muyn(), superfic);
 	}
 	
 	private void ekQefBukln() {

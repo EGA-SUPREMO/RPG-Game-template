@@ -16,9 +16,14 @@ public class DebugDesegn {
 		g = gg;
 		objektjDesegnita = 0;
 	}
-	
+
 	public static void desegnString(final String str, final int x, final int y) {
 		objektjDesegnita++;
+		g.drawString(str, x, y);
+	}
+	public static void desegnString(final String str, final int x, final int y, final Color c) {
+		objektjDesegnita++;
+		g.setColor(c);
 		g.drawString(str, x, y);
 	}
 

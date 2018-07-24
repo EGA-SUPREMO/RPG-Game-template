@@ -11,5 +11,4 @@ public class QefObjektj {//Objektoj de la ludoj
 	public static Ludant ludant = new Ludant(map);
 	public static Submenu submenu = new Submenu();
 	public static Malhelec malhelec = new Malhelec();
-	
 }

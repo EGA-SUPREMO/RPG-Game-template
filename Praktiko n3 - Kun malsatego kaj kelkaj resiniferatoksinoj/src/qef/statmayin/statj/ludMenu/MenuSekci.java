@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 import qef.Konstantj;
+import qef.grafikj.Superficdesegn;
 import qef.ilj.DebugDesegn;
+import qef.ilj.TooltipGeneril;
 
 public abstract class MenuSekci {
 	

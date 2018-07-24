@@ -1,5 +1,6 @@
 package qef.statmayin;
 
+import qef.grafikj.Superficdesegn;
 import qef.kontrolj.Kontrolperant;
 import qef.kontrolj.Muy;
 import qef.statmayin.statj.lud.Ludperant;
@@ -11,15 +12,15 @@ public class Statperant {
 	private Statlud[] statj;
 	private Statlud nunStat;
 	
-	public Statperant(final Muy muy) {
-		ekStatj(muy);
+	public Statperant(final Muy muy, final Superficdesegn sd) {
+		ekStatj(muy, sd);
 		definNunStatn();
 	}
 
-	private void ekStatj(final Muy muy) {
+	private void ekStatj(final Muy muy, final Superficdesegn sd) {
 		statj = new Statlud[2];
 		statj[0] = new Ludperant();
-		statj[1] = new Menuperant(muy);
+		statj[1] = new Menuperant(muy, sd);
 		//Aldunu pli da statoj kaj pliigu la nombron
 	}
 	

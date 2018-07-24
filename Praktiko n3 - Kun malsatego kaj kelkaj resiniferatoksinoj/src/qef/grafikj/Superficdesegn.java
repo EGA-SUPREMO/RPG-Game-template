@@ -12,6 +12,7 @@ import qef.Konstantj;
 import qef.QefObjektj;
 import qef.ilj.DebugDatum;
 import qef.ilj.DebugDesegn;
+import qef.ilj.StringKvantil;
 import qef.kontrolj.Kontrolperant;
 import qef.kontrolj.Muy;
 import qef.statmayin.Statperant;
@@ -52,6 +53,7 @@ public class Superficdesegn extends Canvas {
 		final Graphics g = bufer.getDrawGraphics();
 		
 		DebugDesegn.definigad(g);
+		StringKvantil.definigad(g);
 		
 		DebugDesegn.setColor(Color.BLACK);//mi havas taskon relatita al tiu
 		DebugDesegn.desegnRectangle(0, 0, Konstantj.plejfenestrLargx, Konstantj.plejfenestrAlt);
