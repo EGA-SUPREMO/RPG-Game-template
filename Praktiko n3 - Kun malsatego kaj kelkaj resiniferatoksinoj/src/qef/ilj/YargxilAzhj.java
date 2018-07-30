@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 
 public class YargxilAzhj {
 	
-	public static BufferedImage yargxBildn(final String itener, final int diafanec) {//Carga una imagen compatible opaca
+	public static BufferedImage yargxBildn(final String itener, final int diafanec) {//Carga una imagen compatible
 		
 		Image i = null;
 		

@@ -17,7 +17,7 @@ public class Menuperant implements Statlud {
 		
 		menu = new MenuStrutur();
 		sekcij = new MenuSekci[2];
-		sekcij[0] = new InventarMenu(menu.fonn(), sd);
+		sekcij[0] = new InventarMenu(menu.fonn(), sd, menu);
 		sekcij[1] = new ArmazhMenu();
 		
 		aktivsekci = sekcij[0];

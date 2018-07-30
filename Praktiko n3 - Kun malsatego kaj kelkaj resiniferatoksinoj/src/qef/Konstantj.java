@@ -9,6 +9,7 @@ import qef.ilj.YargxilAzhj;
 
 public abstract class Konstantj {
 	
+	public static final int SPRITEFLANK = 32;
 	public static final int SPRITELARGX = 32;
 	public static final int SPRITEALT = 32;
 	
@@ -49,6 +50,8 @@ public abstract class Konstantj {
 	public final static String SUFIX_MAP = ".egam";
 	public final static String ITENER_MAP = "/maps/";
 	public final static String ITENER_LUDANT = "/entities/player_";
+
+	public final static String ITENER_OBJEKTJ = "/objects/";
 
 	public final static Font KUTIM_FONT = YargxilAzhj.yargxFontn("/Arvin Regular.ttf");
 	

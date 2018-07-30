@@ -1,6 +1,7 @@
 package qef.ilj;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -16,7 +17,7 @@ public class DebugDesegn {
 		g = gg;
 		objektjDesegnita = 0;
 	}
-
+	
 	public static void desegnString(final String str, final int x, final int y) {
 		objektjDesegnita++;
 		g.drawString(str, x, y);
@@ -85,7 +86,12 @@ public class DebugDesegn {
 			desegnRectangle(QefObjektj.ludant.LIMJN()[i]);
 		
 	}
-	
+	public static void setFont(final Font font) {
+		g.setFont(font);
+	}
+	public static Font Fontn() {
+		return g.getFont();
+	}
 	public static void setColor(final Color c) {
 		g.setColor(c);
 	}
