@@ -7,6 +7,8 @@ import qef.Konstantj;
 import qef.QefObjektj;
 import qef.estazhj.Estazh;
 import qef.ilj.Bildperant;
+import qef.inventar.Objektregistril;
+import qef.inventar.armil.Armil;
 import qef.map.Map;
 import qef.sprite.SpriteFoli;
 
@@ -25,6 +27,7 @@ public abstract class Vivazh implements Estazh {
 	protected boolean movante;
 	protected int nunBild;
 	protected int frekvenciAnimaci;
+	protected Vivazharmilar vivazharmilar;
 	/* x = 8, y = 8
 	 * 
 	 * x =
@@ -50,13 +53,12 @@ public abstract class Vivazh implements Estazh {
 	protected float rapidec;
 /*	private float kurrapidec, normalrapidec;//faru privata la varieblo kaj faru metodon por sxangxi la rapidecon, tio inkluzas la frek-
 	private boolean qkur;					//vcio de la Animacion*/
-	private Map map;
 	protected int largxVivazh, altVivazh;
 	protected Integer /*resistenc = Konstantj.plejResistenc,*/ restarigad = 0;//resistenco kaj re-starigado
 	protected int viv;
 	private int damagx;
 
-	public Vivazh(final Map map,  final int ordenSpec, final SpriteFoli sprite) {
+	public Vivazh(final int ordenSpec, final SpriteFoli sprite) {
 		
 		this.largxVivazh = 16;
 		this.altVivazh = 16;
@@ -69,11 +71,11 @@ public abstract class Vivazh implements Estazh {
 		this.direkt = 1;
 		this.movante = false;
 		this.frekvenciAnimaci = 10;
-		this.map = map;
-		this.x = map.xLudantn();
-		this.y = map.yLudantn();
+		this.x = QefObjektj.map.xLudantn();
+		this.y = QefObjektj.map.yLudantn();
 		this.viv = 100;
 		this.damagx = 100;
+		vivazharmilar = new Vivazharmilar((Armil) Objektregistril.objektjn(599));
 		this.LIMJ[0] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt - altVivazh,
 				Konstantj.SPRITELARGX - 2, 1);
 		this.LIMJ[1] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt + altVivazh - 1,
@@ -87,7 +89,7 @@ public abstract class Vivazh implements Estazh {
 		
 	}
 	
-	public Vivazh(final Map map, final int ordenSpec, final float rapidec, final int largxVivazh, final int altVivazh, final
+	public Vivazh(final int ordenSpec, final float rapidec, final int largxVivazh, final int altVivazh, final
 			int viv, final Rectangle[] limj, final SpriteFoli sprite) {
 		
 		this.largxVivazh = largxVivazh;
@@ -98,10 +100,11 @@ public abstract class Vivazh implements Estazh {
 		this.movante = false;
 		this.direkt = 1;
 		this.frekvenciAnimaci = 10;
-		this.map = map;
 		this.viv = viv;
 		for(int i = 0; i < limj.length;i++)
 			this.LIMJ[i] = limj[i];
+		
+		vivazharmilar = new Vivazharmilar((Armil) Objektregistril.objektjn(599));
 		
 		ordenBildj(ordenSpec, sprite.spritejn());
 	}
@@ -225,10 +228,9 @@ public abstract class Vivazh implements Estazh {
 		if(QefObjektj.map.arejVenontMapn().intersects(LIMJ[0])) {
 			
 			QefObjektj.map = new Map(QefObjektj.map.venontMapn());
-			map = QefObjektj.map;
 			
-			x = map.xLudantn();
-			y = map.yLudantn();
+			x = QefObjektj.map.xLudantn();
+			y = QefObjektj.map.yLudantn();
 			
 		}
 	}
@@ -258,8 +260,8 @@ public abstract class Vivazh implements Estazh {
 				direktY = 0;
 		}
 		
-		for(int i = 0; i < map.arejKolici.size();i++) {
-			final Rectangle area = map.arejKolici.get(i);
+		for(int i = 0; i < QefObjektj.map.arejKolici.size();i++) {
+			final Rectangle area = QefObjektj.map.arejKolici.get(i);
 			
 			final int origenX = area.x + (direktX * (int) rapidec << 1);
 			final int origenY = area.y + (direktY * (int) rapidec << 1);
@@ -315,7 +317,7 @@ public abstract class Vivazh implements Estazh {
 				estontecX = (int) (x + rapidec);
 				estontecY = (int) (y + rapidec);
 		}
-		Rectangle margxenMap = map.margxen(estontecX, estontecY);
+		Rectangle margxenMap = QefObjektj.map.margxen(estontecX, estontecY);
 		
 		if(LIMJ[0].intersects(margxenMap) || LIMJ[1].intersects(margxenMap) || LIMJ[2].intersects(margxenMap) ||
 				LIMJ[3].intersects(margxenMap)) {
@@ -328,10 +330,6 @@ public abstract class Vivazh implements Estazh {
 	public void desegn() {}
 	
 	public void gxisdatig() {}
-	
-	public Map mapn() {
-		return map;
-	}
 	
 	public double rapidecn() {
 		return rapidec;
@@ -393,6 +391,9 @@ public abstract class Vivazh implements Estazh {
 	}
 	public void setY(final int y) {
 		this.y = y;
+	}
+	public Vivazharmilar vivazharmilarn() {
+		return vivazharmilar;
 	}
 /*	public void setResistenc(final int resistenc) {
 		this.resistenc = resistenc;

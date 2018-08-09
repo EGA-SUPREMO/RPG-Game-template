@@ -1,8 +1,6 @@
 package qef;
 
 import qef.grafikj.Fenestr;
-import qef.grafikj.Superficdesegn;
-import qef.statmayin.Statperant;
 
 public class Qefperant {
 	
@@ -10,11 +8,7 @@ public class Qefperant {
 	
 	private String titol;
 	
-	private int largx, alt;
-	
 //	private Fenestr fenestr;
-	private Statperant statp;
-	public static Superficdesegn superfic;
 	
 	public static void main(String[] args) {
 		Qefperant qp = new Qefperant("Kun malsatego kaj kelkaj resiniferatoksinoj...", Konstantj.plejfenestrLargx,
@@ -24,20 +18,20 @@ public class Qefperant {
 		qp.ekQefBukln();
 	}
 	
-	private Qefperant(final String titol, final int largx, final int alt) {
-		this.titol = titol;
-		this.largx = largx;
-		this.alt = alt;
+	private Qefperant(final String titolo, final int largx, final int alt) {
+		titol = titolo;
+		Konstantj.nunlargxFenestrS = largx;
+		Konstantj.nunaltFenestr = alt;
 	}
 	
 	private void desegn() {
-		superfic.desegn(statp);
+		QefObjektj.superfic.desegn(QefObjektj.statp);
 	}
 	
 	private void gxisdatig() {
-		statp.yangxNunStatn();
-		statp.gxisdatig();
-		superfic.muyn().gxisdatig();
+		QefObjektj.statp.yangxNunStatn();
+		QefObjektj.statp.gxisdatig();
+		QefObjektj.superfic.muyn().gxisdatig();
 	}
 	
 	private void ekLudn() {
@@ -47,9 +41,7 @@ public class Qefperant {
 	}
 	
 	private void definigad() {
-		superfic = new Superficdesegn(largx, alt);
-		new Fenestr(titol, superfic);
-		statp = new Statperant(superfic.muyn(), superfic);
+		new Fenestr(titol);
 	}
 	
 	private void ekQefBukln() {

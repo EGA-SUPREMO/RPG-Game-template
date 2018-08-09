@@ -64,3 +64,7 @@ sooooooooor
 480_280//komenca posicio
 @
 192_288_1//posicio de la loko por iri al alia mapo kaj la lasta kvanto signifas la nomon de sekva mapo
+@
+500_300.1_1,5_1,7_3//la unua parto(antaux la punkto) estas la posicio de la objektaro kaj la dua esta la id-o de la objekto kaj la kvanto
+://subseparantoj
+3_3.2_1,6_3,3_2

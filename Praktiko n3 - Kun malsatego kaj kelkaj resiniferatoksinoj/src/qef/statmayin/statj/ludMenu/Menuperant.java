@@ -1,6 +1,6 @@
 package qef.statmayin.statj.ludMenu;
 
-import qef.grafikj.Superficdesegn;
+import qef.QefObjektj;
 import qef.kontrolj.Muy;
 import qef.statmayin.Statlud;
 
@@ -12,13 +12,13 @@ public class Menuperant implements Statlud {
 	private final MenuSekci[] sekcij;
 	private MenuSekci aktivsekci;
 	
-	public Menuperant(final Muy muyo, final Superficdesegn sd) {
-		muy = muyo;
+	public Menuperant() {
+		muy = QefObjektj.superfic.muyn();
 		
 		menu = new MenuStrutur();
 		sekcij = new MenuSekci[2];
-		sekcij[0] = new InventarMenu(menu.fonn(), sd, menu);
-		sekcij[1] = new ArmazhMenu();
+		sekcij[0] = new InventarMenu(menu);
+		sekcij[1] = new ArmazhMenu((InventarMenu) sekcij[0], menu);
 		
 		aktivsekci = sekcij[0];
 	}
@@ -33,6 +33,7 @@ public class Menuperant implements Statlud {
 				break;
 			}
 		muy.resetQclickn();
+		aktivsekci.gxisdatig();
 	}
 	
 	@Override
@@ -41,6 +42,10 @@ public class Menuperant implements Statlud {
 		for(int i = 0; i<sekcij.length;i++)
 			sekcij[i].desegnEtikedn(muy.rectangleReskalitPosicin(), aktivsekci);
 		aktivsekci.desegn();
+	}
+	
+	public MenuSekci sekcijn(final int i) {
+		return sekcij[i];
 	}
 	
 	public MenuStrutur menun() {

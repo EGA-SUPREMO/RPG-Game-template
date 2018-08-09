@@ -8,6 +8,7 @@ import java.awt.event.WindowFocusListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import qef.QefObjektj;
 import qef.ilj.YargxilAzhj;
 
 public class Fenestr extends JFrame implements WindowFocusListener {
@@ -19,18 +20,18 @@ public class Fenestr extends JFrame implements WindowFocusListener {
 	
 	private final ImageIcon icon;
 	
-	public Fenestr(final String titol, Superficdesegn sd) {
+	public Fenestr(final String titol) {
 		
 		this.titol = titol;
 		this.titol1 = "Esperanto estas la plej bona lingvo en la tuta mondo, ecx pli bona ol Ido!";
 		
 		icon = new ImageIcon(YargxilAzhj.yargxBildn("/icons/icon.png", Transparency.TRANSLUCENT));
 		
-		agordFenestrn(sd);
+		agordFenestrn();
 		
 	}
 
-	private void agordFenestrn(final Superficdesegn sd) {
+	private void agordFenestrn() {
 		
 		setTitle(titol);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,7 +39,7 @@ public class Fenestr extends JFrame implements WindowFocusListener {
 		addWindowFocusListener(this);
 		setIconImage(icon.getImage());
 		setLayout(new BorderLayout());
-		add(sd, BorderLayout.CENTER);
+		add(QefObjektj.superfic, BorderLayout.CENTER);
 		setUndecorated(true);
 		setExtendedState(MAXIMIZED_BOTH);
 		

@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 
 import qef.Konstantj;
 import qef.QefObjektj;
-import qef.grafikj.Superficdesegn;
 import qef.ilj.DebugDesegn;
 import qef.ilj.StringKvantil;
 import qef.ilj.TooltipGeneril;
@@ -18,34 +17,30 @@ public class InventarMenu extends MenuSekci {
 	private Rectangle pezVerg;
 	private int plejpez, nunpez;
 	
-	private Superficdesegn sd;
 	private MenuStrutur ms;
 	
-	private int gxeneralMargxen = 8;
-	
-	public InventarMenu(final Rectangle fon, final Superficdesegn sdo, final MenuStrutur mso) {
+	public InventarMenu(final MenuStrutur mso) {
 		super("Inventaro");
 		
 		int vergAlt = 8;
 		
 		plejpez = 100;
 		nunpez = 20;
+		ms = mso;
 		
-		pezVerg = new Rectangle(Konstantj.ludLargx - MenuStrutur.ETIKED_LARGX - gxeneralMargxen, fon.y
+		pezVerg = new Rectangle(Konstantj.ludLargx - MenuStrutur.ETIKED_LARGX - gxeneralMargxen, ms.fonn().y
 				+ gxeneralMargxen, MenuStrutur.ETIKED_LARGX, vergAlt);
 		
-		sd = sdo;
-		ms = mso;
 	}
 
 	@Override
 	public void desegn() {
 		desegnPezVerg();
-		desegnItemj(ms);
-		desegnTooltipj(sd);//GXI uzas la Superficdesegn sen gxisdatigi
+		desegnItemj();
+		desegnTooltipj();//GXI uzas la Superficdesegn sen gxisdatigi
 	}
 	
-	private void desegnPezVerg() {
+	public void desegnPezVerg() {
 		DebugDesegn.desegnRectangle(pezVerg, Color.GRAY);
 		DebugDesegn.desegnRectangle(pezVerg.x + 1, pezVerg.y + 1, pezVerg.width/plejpez*nunpez - 2,
 				pezVerg.height - 2, Konstantj.KOLOR_SUPR_BANNER);
@@ -53,17 +48,17 @@ public class InventarMenu extends MenuSekci {
 		DebugDesegn.desegnString("Pezo:", pezVerg.x - 30, pezVerg.y + 8);
 	}
 
-	private void desegnTooltipj(Superficdesegn sd) {
-		TooltipGeneril.desegnTooltipn(sd, pezVerg, nunpez + "/" + plejpez);
+	public void desegnTooltipj() {
+		TooltipGeneril.desegnTooltipn(QefObjektj.superfic, pezVerg, nunpez + "/" + plejpez);
 	}
 	
-	private void desegnItemj(final MenuStrutur ms) {
+	private void desegnItemj() {//TODO MALLONGIGU TION CXI PLS
 		final Point komencPunkt = new Point(ms.fonn().x + gxeneralMargxen * 2, pezVerg.y + pezVerg.height +
 				gxeneralMargxen);
 		DebugDesegn.setFont(DebugDesegn.Fontn().deriveFont(DebugDesegn.Fontn().getSize()-2));
 		
-		for(int i = 0; i <  QefObjektj.inventar.objektj.size(); i++) {
-			DebugDesegn.desegnBildn(QefObjektj.inventar.objektj.get(i).spriten(), komencPunkt.x +
+		for(int i = 0; i <  QefObjektj.inventar.konsumeblazhjn().size(); i++) {
+			DebugDesegn.desegnBildn(QefObjektj.inventar.konsumeblazhjn().get(i).spriten(), komencPunkt.x +
 					i*(gxeneralMargxen + Konstantj.SPRITEFLANK), komencPunkt.y);
 			
 			DebugDesegn.setColor(Color.BLACK);
@@ -86,6 +81,10 @@ public class InventarMenu extends MenuSekci {
 	
 	@Override
 	public void gxisdatig() {
+	}
+	
+	public Rectangle pezVergn() {
+		return pezVerg;
 	}
 	
 }

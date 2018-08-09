@@ -1,9 +1,38 @@
 package qef.inventar;
 
+import qef.inventar.armil.Pistol;
+import qef.inventar.armil.Senarma;
+import qef.inventar.konsumeblezh.Konsumeblezh;
+
 public class Objektregistril {
 
-	public static Objekt[] objektj = {new Objekt(0, "1", ""), new Objekt(1, "2", ""), new Objekt(2, "3", ""),
-			new Objekt(3, "4", ""), new Objekt(4, "5", ""), new Objekt(5, "6", ""), new Objekt(6, "7", ""),
-			new Objekt(7, "8", "")};
+	public static Objekt objektjn(final int id) {
+		
+		switch(id) {
+			case 0://-----------------------------------0-499 nur konsumeblajxoj-------------------------------------
+				return new Konsumeblezh(id, "a", "");
+			case 1:
+				return new Konsumeblezh(id, "b", "");
+			case 2:
+				return new Konsumeblezh(id, "d", "");
+			case 3:
+				return new Konsumeblezh(id, "e", "");
+			case 4:
+				return new Konsumeblezh(id, "f", "");
+			case 5:
+				return new Konsumeblezh(id, "g", "");
+			case 6:
+				return new Konsumeblezh(id, "h", "");
+			case 7:
+				return new Konsumeblezh(id, "i", "");
+			case 500:
+				return new Pistol(id, "Acxajxo", "Pistolacxo", 1, 2);
+			case 599:
+				return new Senarma(id, "Senarma", "Uzu viajn pugnojn", 1, 1);
+			default:
+				return new Konsumeblezh(id, "z", "");
+		}
+		
+	}
 	
 }

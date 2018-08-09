@@ -5,7 +5,6 @@ import java.awt.Transparency;
 import qef.Konstantj;
 import qef.ilj.DebugDesegn;
 import qef.kontrolj.Kontrolperant;
-import qef.map.Map;
 import qef.sprite.SpriteFoli;
 import qef.uzantinterfac.Text;
 
@@ -13,8 +12,8 @@ public class Ludant extends Vivazh {
 	
 	private int experienc = 100;
 	
-	public Ludant(final Map map) {
-		super(map, 0, new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32, Transparency.TRANSLUCENT, 128));
+	public Ludant() {
+		super(0, new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32, Transparency.TRANSLUCENT, 128));
 	}
 	
 	@Override

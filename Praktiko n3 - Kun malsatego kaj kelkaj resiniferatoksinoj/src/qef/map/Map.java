@@ -1,16 +1,18 @@
 package qef.map;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-//import java.util.Random;
 
 import qef.Konstantj;
 import qef.QefObjektj;
 import qef.ilj.DebugDesegn;
 import qef.ilj.Kvantperant;
 import qef.ilj.YargxilAzhj;
+import qef.inventar.Objektar;
+import qef.kontrolj.Kontrolperant;
 import qef.sprite.SpriteFoli;
 
 public class Map {
@@ -20,7 +22,8 @@ public class Map {
 	private final int xLudant;
 	private final int yLudant;
 	private final boolean[] kolicij;
-	public ArrayList<Rectangle> arejKolici;
+	public final ArrayList<Rectangle> arejKolici;
+	private final ArrayList<Objektar> objektarj;
 	private final Rectangle arejVenontMap;
 	private final int posiciXVenontMap;
 	private final int posiciYVenontMap;
@@ -53,13 +56,63 @@ public class Map {
 		
 		venontMap = Integer.parseInt(venontMapDatumj[2]);
 		
+		if(enhav.length>8)
+			objektarj = elObjektar(enhav[8]);
+		else
+			objektarj = new ArrayList<>();
 	}
 	
+	private ArrayList<Objektar> elObjektar(String str) {
+		final ArrayList<Objektar> objektar = new ArrayList<>();
+		
+		for(String info_objektar: str.split(":")) {
+			final String[] subinfo_objektar = info_objektar.split("\\.");
+			
+			final String[] strPosici = subinfo_objektar[0].split("_");
+			final Point posici = new Point(Integer.parseInt(strPosici[0]), Integer.parseInt(strPosici[1]));
+			
+			final String[] strObjekt = subinfo_objektar[1].split(",");
+			final int[] objektId = new int[strObjekt.length];
+			final int[] objektKvant = new int[strObjekt.length];
+			
+			for(int i = 0; i < strObjekt.length; i++) {
+				final String[] subobjekt = strObjekt[i].split("_");
+
+				objektId[i] = Integer.parseInt(subobjekt[0]);
+				objektKvant[i] = Integer.parseInt(subobjekt[1]);
+			}
+			Objektar nov = new Objektar(posici, objektId, objektKvant);
+			objektar.add(nov);
+		}
+		
+		return objektar;
+	}
+
 	public void gxisdatig() {
 		gxisdatigArejKolicin();
 		gxisdatigArejn();
+		gxisdatigObjektj();
 	}
 	
+	private void gxisdatigObjektj() {
+		if (!objektarj.isEmpty()) {
+        final Rectangle areaJugador = new Rectangle((int)QefObjektj.ludant.xn(),
+                (int)QefObjektj.ludant.yn(), QefObjektj.ludant.largxVivazhn(), QefObjektj.ludant.altVivazhn());
+
+        for (int i = 0; i < objektarj.size(); i++) {
+            final Objektar nunobjektar = objektarj.get(i);
+
+            final Rectangle posicionContenedor = new Rectangle(nunobjektar.posicin().x*Konstantj.SPRITEFLANK,
+                    nunobjektar.posicin().y*Konstantj.SPRITEFLANK, Konstantj.SPRITEFLANK, Konstantj.SPRITEFLANK);
+
+            if (areaJugador.intersects(posicionContenedor) && Kontrolperant.klavar.qkolekt) {
+                QefObjektj.inventar.kolektObjekt(nunobjektar);
+                objektarj.remove(i);
+            }
+        }
+    }
+	}
+
 	private void gxisdatigArejKolicin() {
 		if(!arejKolici.isEmpty())
 			arejKolici.clear();
@@ -82,8 +135,13 @@ public class Map {
 		
 		for(int y = 0; y < alt; y++)
 			for(int x = 0; x < largx; x++)
-				DebugDesegn.desegnBildn(map[x + y * largx], (int) (Kvantperant.koordenadXalPosici(x * Konstantj.SPRITELARGX)), (int)
-						(Kvantperant.koordenadYalPosici(y * Konstantj.SPRITEALT)));
+				DebugDesegn.desegnBildn(map[x + y * largx], (int) (Kvantperant.koordenadXalPosici(
+						x*Konstantj.SPRITELARGX)), (int) (Kvantperant.koordenadYalPosici(y * Konstantj.SPRITEALT)));
+		
+		if(!objektarj.isEmpty()) 
+			for(Objektar nun: objektarj)
+				nun.desegn();
+		
 		
 	}
 	

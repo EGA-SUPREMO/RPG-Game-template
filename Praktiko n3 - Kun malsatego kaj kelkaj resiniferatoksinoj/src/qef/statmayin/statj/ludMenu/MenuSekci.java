@@ -15,6 +15,8 @@ public abstract class MenuSekci {
 	protected final int ID;
 	private static int id = 0;
 	
+	protected int gxeneralMargxen = 8;
+	
 	public MenuSekci(final String nomo) {
 		id++;
 		ID = id;

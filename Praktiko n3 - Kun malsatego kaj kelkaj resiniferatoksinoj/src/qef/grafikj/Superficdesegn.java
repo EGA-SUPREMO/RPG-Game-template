@@ -25,10 +25,10 @@ public class Superficdesegn extends Canvas {
 	private int largx, alt;
 	private Muy muy;
 	
-	public Superficdesegn(final int largx, final int alt) {
+	public Superficdesegn() {
 		
-		this.largx = largx;
-		this.alt = alt;
+		this.largx = Konstantj.nunlargxFenestrS;
+		this.alt = Konstantj.nunaltFenestr;
 		this.muy = new Muy(this);
 		
 		setIgnoreRepaint(true);
@@ -81,9 +81,9 @@ public class Superficdesegn extends Canvas {
 		DebugDatum.addDatumn("Restarigado: " + QefObjektj.ludant.restarigadn());
 		DebugDatum.addDatumn("Faktoro X: " + Konstantj.faktorX);
 		DebugDatum.addDatumn("Faktoro Y: " + Konstantj.faktorY);
-		DebugDatum.addDatumn("Venonta mapo: " + QefObjektj.ludant.mapn().venontMapn());
-		DebugDatum.addDatumn("Komenca posicio X: " + QefObjektj.ludant.mapn().xLudantn());
-		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.ludant.mapn().yLudantn());
+		DebugDatum.addDatumn("Venonta mapo: " + QefObjektj.map.venontMapn());
+		DebugDatum.addDatumn("Komenca posicio X: " + QefObjektj.map.xLudantn());
+		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.map.yLudantn());
 		DebugDatum.addDatumn("OPF: " + DebugDesegn.objektjDesegnitan());
 		
 		DebugDatum.addDatumn("RX: " + muy.posicin().x);

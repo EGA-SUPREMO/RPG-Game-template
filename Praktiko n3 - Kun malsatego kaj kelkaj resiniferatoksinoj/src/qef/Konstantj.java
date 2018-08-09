@@ -13,8 +13,11 @@ public abstract class Konstantj {
 	public static final int SPRITELARGX = 32;
 	public static final int SPRITEALT = 32;
 	
+	public static final int KVANT_KONSUMEBL_OBJEKT = 500;
+	
 	public static int plejRestarigad = 150;
 	public static int plejResistenc = 750;
+	
 
 	public static int ludLargx = 640;
 	public static int ludAlt = 360;
@@ -23,6 +26,8 @@ public abstract class Konstantj {
 	
 	public static int plejfenestrLargx = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static int plejfenestrAlt = Toolkit.getDefaultToolkit().getScreenSize().height;
+	
+	public static int nunlargxFenestrS = plejfenestrLargx, nunaltFenestr = plejfenestrAlt;
 	
 	public static double faktorX = (double) plejfenestrLargx / (double) ludLargx;
 	public static double faktorY = (double) plejfenestrAlt / (double) ludAlt;
@@ -44,6 +49,7 @@ public abstract class Konstantj {
 	public final static int REKOMENCI = KeyEvent.VK_R;
 	public final static int DEBUG = KeyEvent.VK_F1;
 	public final static int AKTIV_INVENTARI = KeyEvent.VK_E;
+	public final static int QKOLEKTE = KeyEvent.VK_C;
 	
 	public static int qiufps = 0, fps = 0, aps = 0, sekundjPasita = 0;
 	
@@ -52,6 +58,9 @@ public abstract class Konstantj {
 	public final static String ITENER_LUDANT = "/entities/player_";
 
 	public final static String ITENER_OBJEKTJ = "/objects/";
+	public final static String ITENER_OBJEKT_ARMIL = ITENER_OBJEKTJ + "/weapons/";
+	
+	public final static String ITENER_OBJEKT_OBJEKTAR = ITENER_OBJEKTJ + "sack.png";
 
 	public final static Font KUTIM_FONT = YargxilAzhj.yargxFontn("/Arvin Regular.ttf");
 	

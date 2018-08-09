@@ -1,34 +1,30 @@
 package qef.inventar;
 
-import java.awt.Transparency;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import qef.Konstantj;
-import qef.sprite.SpriteFoli;
+public abstract class Objekt {
+	
+	protected int id;
+	protected String priskrib;
+	protected String nom;
+	
+	protected int kvant;
+	protected int plejkvant;
 
-public class Objekt {
-	
-	public static SpriteFoli ObjektSpriteFoli = new SpriteFoli(Konstantj.ITENER_OBJEKTJ + 0 + ".png",
-			Konstantj.SPRITEFLANK, Transparency.OPAQUE);
-	
-	private int id;
-	private String priskrib;
-	private String nom;
-	
-	private BufferedImage sprite;
-	
-	private int kvant;
-	private int plejkvant;
+	protected Point menuposici;
+	protected Point floatMenuposici;
 	
 	public Objekt(final int id, final String nomo, final String priskribo) {
 		this.id = id;
 		nom = nomo;
 		priskrib = priskribo;
 		
-		sprite = ObjektSpriteFoli.spritejn(id);
-		
 		kvant = 0;
 		plejkvant = 128;
+
+		menuposici = new Point(0, 0);
+		floatMenuposici = new Point(0, 0);
 	}
 	public Objekt(final int id, final String nomo, final String priskribo, final int kvanto) {
 		this(id, nomo, priskribo);
@@ -60,15 +56,25 @@ public class Objekt {
 		
 		return qmlpliigita;
 	}
-	public BufferedImage spriten() {
-		return sprite;
-	}
+	public abstract BufferedImage spriten();
 	public int kvantn() {
 		return kvant;
 	}
 	
 	public int idn() {
 		return id;
+	}
+	public Point menuposicin() {
+		return menuposici;
+	}
+	public Point floatMenuposicin() {
+		return floatMenuposici;
+	}
+	public void setMenuposicin(final Point pos) {
+		menuposici = pos;
+	}
+	public void setFloatMenuposicin(final Point pos) {
+		floatMenuposici = pos;
 	}
 	
 }
