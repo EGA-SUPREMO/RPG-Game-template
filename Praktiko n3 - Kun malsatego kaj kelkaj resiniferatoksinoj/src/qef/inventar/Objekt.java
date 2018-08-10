@@ -1,6 +1,6 @@
 package qef.inventar;
 
-import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public abstract class Objekt {
@@ -12,8 +12,8 @@ public abstract class Objekt {
 	protected int kvant;
 	protected int plejkvant;
 
-	protected Point menuposici;
-	protected Point floatMenuposici;
+	protected Rectangle menuposici;
+	protected Rectangle floatMenuposici;
 	
 	public Objekt(final int id, final String nomo, final String priskribo) {
 		this.id = id;
@@ -23,8 +23,8 @@ public abstract class Objekt {
 		kvant = 0;
 		plejkvant = 128;
 
-		menuposici = new Point(0, 0);
-		floatMenuposici = new Point(0, 0);
+		menuposici = new Rectangle(0, 0, 32, 32);
+		floatMenuposici = new Rectangle(0, 0, 32, 32);
 	}
 	public Objekt(final int id, final String nomo, final String priskribo, final int kvanto) {
 		this(id, nomo, priskribo);
@@ -64,17 +64,19 @@ public abstract class Objekt {
 	public int idn() {
 		return id;
 	}
-	public Point menuposicin() {
+	public Rectangle menuposicin() {
 		return menuposici;
 	}
-	public Point floatMenuposicin() {
+	public Rectangle floatMenuposicin() {
 		return floatMenuposici;
 	}
-	public void setMenuposicin(final Point pos) {
-		menuposici = pos;
+	public void setMenuposicin(final int x, final int y) {
+		menuposici.x = x;
+		menuposici.y = y;
 	}
-	public void setFloatMenuposicin(final Point pos) {
-		floatMenuposici = pos;
+	public void setFloatMenuposicin(final int x, final int y) {
+		floatMenuposici.x = x;
+		floatMenuposici.y = y;
 	}
 	
 }

@@ -395,6 +395,9 @@ public abstract class Vivazh implements Estazh {
 	public Vivazharmilar vivazharmilarn() {
 		return vivazharmilar;
 	}
+	public void setSpriteFoli(final SpriteFoli foli, final int ordenSpec) {
+		ordenBildj(ordenSpec, foli.spritejn());
+	}
 /*	public void setResistenc(final int resistenc) {
 		this.resistenc = resistenc;
 	}*/

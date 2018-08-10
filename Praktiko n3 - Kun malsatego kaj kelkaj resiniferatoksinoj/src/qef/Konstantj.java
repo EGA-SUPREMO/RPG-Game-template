@@ -52,6 +52,7 @@ public abstract class Konstantj {
 	public final static int QKOLEKTE = KeyEvent.VK_C;
 	
 	public static int qiufps = 0, fps = 0, aps = 0, sekundjPasita = 0;
+	public static boolean qyangxSpriteFoli = false;
 	
 	public final static String SUFIX_MAP = ".egam";
 	public final static String ITENER_MAP = "/maps/";

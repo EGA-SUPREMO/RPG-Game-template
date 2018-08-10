@@ -4,6 +4,8 @@ import java.awt.Transparency;
 
 import qef.Konstantj;
 import qef.ilj.DebugDesegn;
+import qef.inventar.armil.Armil;
+import qef.inventar.armil.Senarma;
 import qef.kontrolj.Kontrolperant;
 import qef.sprite.SpriteFoli;
 import qef.uzantinterfac.Text;
@@ -11,6 +13,10 @@ import qef.uzantinterfac.Text;
 public class Ludant extends Vivazh {
 	
 	private int experienc = 100;
+	private static final SpriteFoli armatludantsprite = new SpriteFoli(Konstantj.ITENER_LUDANT + 1 + ".png", 32,
+			Transparency.TRANSLUCENT, 128);
+	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32,
+			Transparency.TRANSLUCENT, 128);//TODO Mi eble unigos cxi tion en unu "array"
 	
 	public Ludant() {
 		super(0, new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32, Transparency.TRANSLUCENT, 128));
@@ -20,6 +26,7 @@ public class Ludant extends Vivazh {
 	public void gxisdatig() {
 		yangxMapn();
 		yangxResistencn();
+		yangxSpriten();
 		mov();
 		anim(movante);
 	}
@@ -96,6 +103,18 @@ public class Ludant extends Vivazh {
 			restarigad++;
 		else if(restarigad == Konstantj.plejRestarigad && Text.RES.kvantn() < Konstantj.plejResistenc)
 			Text.RES.pliigKvantn();
+	}
+	
+	private void yangxSpriten() {
+		if(Konstantj.qyangxSpriteFoli) {
+			Konstantj.qyangxSpriteFoli = false;
+			if(vivazharmilar.armil1n() instanceof Senarma) {
+				setSpriteFoli(senarmatludantsprite, 0);
+				return;
+			}
+			if(vivazharmilar.armil1n() instanceof Armil)
+				setSpriteFoli(armatludantsprite, 0);
+		}
 	}
 	
 	private void yangxRapidec() {

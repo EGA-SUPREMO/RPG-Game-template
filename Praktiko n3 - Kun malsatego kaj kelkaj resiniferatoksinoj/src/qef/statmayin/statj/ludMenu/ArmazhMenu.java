@@ -10,6 +10,7 @@ import qef.ilj.DebugDesegn;
 import qef.ilj.StringKvantil;
 import qef.ilj.TooltipGeneril;
 import qef.inventar.Objekt;
+import qef.inventar.armil.Armil;
 import qef.inventar.armil.Senarma;
 
 public class ArmazhMenu extends MenuSekci {
@@ -27,6 +28,8 @@ public class ArmazhMenu extends MenuSekci {
 	
 	final Rectangle armiletiked;
 	final Rectangle armilar;
+	
+	Objekt selektat;
 	
 	public ArmazhMenu(final InventarMenu inventarMenu, final MenuStrutur ms) {
 		super("Armajxo");
@@ -49,35 +52,32 @@ public class ArmazhMenu extends MenuSekci {
 		armilar = new Rectangle(armiletiked.x + 1, armiletiked.y + armiletiked.height, armiletiked.width - 2,
 				Konstantj.SPRITEFLANK);
 		
+		selektat = null;
 	}
 
 	@Override
 	public void desegn() {
 		menu.desegnPezVerg();
-		dibujarPaneles();
+		desegnObjektpaneln();
+		desegnArmazhpaneln();
+		desegnEcpaneln();
+		desegnfloatObjektn();
 		TooltipGeneril.desegnTooltipn(QefObjektj.superfic, menu.pezVergn(), 30 + "/" + 100);
 	}
-
-	private void dibujarPaneles() {
-		dibujarPanelObjetos(objektpanel, titolObjektpanel, "Equipables");
-		dibujarPanelEquipo(armazhpanel, titolArmazhpanel, "Armajxo");
-		dibujarPanelAtributos(ecpanel, titolEcpanel, "Ecoj");
-	}
-	private void dibujarPanelObjetos(final Rectangle panel, final Rectangle titularPanel,
-			final String nombrePanel) {
-		dibujarPanel(panel, titularPanel, nombrePanel);
-		dibujarElementosEquipables(panel, titularPanel);
+	
+	private void desegnObjektpaneln() {
+		desegnPaneln(objektpanel, titolObjektpanel, "Equipables");
+		dibujarElementosEquipables();
 	}
 
-	private void dibujarElementosEquipables(final Rectangle panelObjetos,
-			final Rectangle titularPanel) {
+	private void dibujarElementosEquipables() {
 
 		if (QefObjektj.inventar.armiljn().isEmpty()) {
 			return;
 		}
 
-		final Point puntoInicial = new Point(titularPanel.x + gxeneralMargxen,
-				titularPanel.y + titularPanel.height + gxeneralMargxen);
+		final Point puntoInicial = new Point(titolObjektpanel.x + gxeneralMargxen,
+				titolObjektpanel.y + titolObjektpanel.height + gxeneralMargxen);
 
 		for (int i = 0; i < QefObjektj.inventar.armiljn().size(); i++) {
 
@@ -109,8 +109,8 @@ public class ArmazhMenu extends MenuSekci {
 		}
 		DebugDesegn.setFont(DebugDesegn.Fontn().deriveFont(12f));
 	}
-	private void dibujarPanelEquipo(final Rectangle panel, final Rectangle titularPanel, final String nombrePanel) {
-		dibujarPanel(panel, titularPanel, nombrePanel);
+	private void desegnArmazhpaneln() {
+		desegnPaneln(armazhpanel, titolArmazhpanel, "Armajxo");
 
 		DebugDesegn.setColor(Color.black);
 
@@ -118,7 +118,6 @@ public class ArmazhMenu extends MenuSekci {
 		DebugDesegn.desegnMargxenRectangle(armilar);
 
         if (!(QefObjektj.ludant.vivazharmilarn().armil1n() instanceof Senarma)) {
-
             DebugDesegn.desegnBildn(QefObjektj.ludant.vivazharmilarn().armil1n().spriten(),
             		armilar.x + armilar.width / 2 - Konstantj.SPRITEFLANK / 2, armilar.y);
         }
@@ -129,13 +128,16 @@ public class ArmazhMenu extends MenuSekci {
 				armiletiked.y + armiletiked.height / 2 + StringKvantil.altStringn("Armilo") / 2);
 	}
 
-	private void dibujarPanelAtributos(final Rectangle panel, final Rectangle titularPanel,
-			final String nombrePanel) {
-		dibujarPanel(panel, titularPanel, nombrePanel);
-		// dibujar los atributos
+	private void desegnEcpaneln() {
+		desegnPaneln(ecpanel, titolEcpanel, "Ecoj");
 	}
-
-	private void dibujarPanel(final Rectangle panel, final Rectangle titularPanel,
+	
+	private void desegnfloatObjektn() {
+		if(selektat!=null)
+			DebugDesegn.desegnBildn(selektat.spriten(), selektat.floatMenuposicin().x,
+					selektat.floatMenuposicin().y);
+	}
+	private void desegnPaneln(final Rectangle panel, final Rectangle titularPanel,
 			final String nombrePanel) {
 		DebugDesegn.setColor(new Color(0xff6700));
 		DebugDesegn.desegnMargxenRectangle(panel);
@@ -150,6 +152,8 @@ public class ArmazhMenu extends MenuSekci {
 	@Override
 	public void gxisdatig() {
 		gxisdatigMenuposicijn();
+		gxisdatigSelektatObjektn();
+		gxisdatigfloatPosicin();
 	}
 	
 	private void gxisdatigMenuposicijn() {
@@ -163,8 +167,38 @@ public class ArmazhMenu extends MenuSekci {
 
 			int idActual = QefObjektj.inventar.armiljn().get(i).idn();
 
-			QefObjektj.inventar.objektn(idActual).setMenuposicin(new Point(puntoInicial.x + i * (Konstantj.SPRITEFLANK +
-					gxeneralMargxen), puntoInicial.y));
+			QefObjektj.inventar.objektn(idActual).setMenuposicin(puntoInicial.x + i * (Konstantj.SPRITEFLANK +
+					gxeneralMargxen), puntoInicial.y);
 		}
 	}
+	private void gxisdatigSelektatObjektn() {
+		if(!QefObjektj.superfic.muyn().qclickn())
+			return;
+		final Rectangle muy = QefObjektj.superfic.muyn().rectangleReskalitPosicin();
+		if(muy.intersects(objektpanel)) {
+			if(QefObjektj.inventar.armiljn().isEmpty())
+				return;
+			for(Objekt nun:QefObjektj.inventar.armiljn()) {
+				if(muy.intersects(nun.menuposicin()))
+					selektat = nun;
+			}
+		} else if(muy.intersects(armazhpanel)) {
+			if(muy.intersects(armilar) && selektat instanceof Armil) {
+				QefObjektj.ludant.vivazharmilarn().setArmil1((Armil) selektat);
+				Konstantj.qyangxSpriteFoli = true;
+				selektat = null;
+			}
+		}
+	}
+	private void gxisdatigfloatPosicin() {
+		if(selektat!=null) {
+			if(QefObjektj.superfic.muyn().qclick2n()) {
+				selektat = null;
+				return;
+			}
+			final Rectangle muy = QefObjektj.superfic.muyn().rectangleReskalitPosicin();
+			selektat.setFloatMenuposicin(muy.x, muy.y);
+		}
+	}
+	
 }

@@ -32,7 +32,6 @@ public class Menuperant implements Statlud {
 				aktivsekci = sekcij[i];
 				break;
 			}
-		muy.resetQclickn();
 		aktivsekci.gxisdatig();
 	}
 	

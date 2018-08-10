@@ -20,7 +20,6 @@ public class Ludperant implements Statlud {
 		QefObjektj.malhelec.desegn();
 		
 		QefObjektj.submenu.desegn();
-		//Submenu.desegnBarn(20, QefObjektj.ludant.resistencn(), Konstantj.plejResistenc, 5);
 		
 	}
 	

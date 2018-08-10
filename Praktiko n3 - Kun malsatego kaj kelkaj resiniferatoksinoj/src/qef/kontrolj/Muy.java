@@ -23,6 +23,7 @@ public class Muy extends MouseAdapter {//Musxo
 	private Canvas canvas;
 	
 	private boolean qclick;
+	private boolean qclick2;
 	
 	public Muy(final Canvas canvas) {
 		
@@ -31,8 +32,9 @@ public class Muy extends MouseAdapter {//Musxo
 		BufferedImage ikon = YargxilAzhj.yargxBildn("/icons/cursor.png", Transparency.TRANSLUCENT);
 		
 		kursor = i.createCustomCursor(ikon, new Point(0, 0), "Kursoro defauxlta");
-		
+
 		qclick = false;
+		qclick2 = false;
 		this.canvas = canvas;
 		posici = new Point();
 		reskalitPosici = new Point();
@@ -43,6 +45,7 @@ public class Muy extends MouseAdapter {//Musxo
 	
 	public void gxisdatig() {
 		gxisdatigPosicijn();
+		resetQclickjn();
 	}
 	
 	private void gxisdatigPosicijn() {
@@ -66,13 +69,21 @@ public class Muy extends MouseAdapter {//Musxo
 	public boolean qclickn() {
 		return qclick;
 	}
-	public void resetQclickn() {
+	public boolean qclick2n() {
+		return qclick2;
+	}
+	public void resetQclickjn() {
 		qclick = false;
+		qclick2 = false;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (SwingUtilities.isLeftMouseButton(e)) {
+			qclick = true;
+		} else if (SwingUtilities.isRightMouseButton(e)) {
+			qclick2 = true;
+		}
 	}
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(!qclick)
-			qclick = true;
-	}
 }
