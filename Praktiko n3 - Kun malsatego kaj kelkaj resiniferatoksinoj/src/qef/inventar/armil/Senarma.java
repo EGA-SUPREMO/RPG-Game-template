@@ -3,6 +3,8 @@ package qef.inventar.armil;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import qef.estazhj.vivazhj.Vivazh;
+
 public class Senarma extends Armil{
 	
 	public Senarma(final int id, final String nomo, final String priskribo, final int plejatako,
@@ -16,7 +18,7 @@ public class Senarma extends Armil{
 	}
 	
 	@Override
-	public ArrayList<Rectangle> atingec() {
+	public ArrayList<Rectangle> atingec(final Vivazh vivazh) {
 		return null;
 	}
 	

@@ -13,7 +13,7 @@ public class Malhelec {
 	
 	public Malhelec() {
 	
-		e = new Color(0, 0, 0, 220);
+		e = new Color(0, 0, 0, 0);//TODO MERDO
 		rektMalhelec = new Rectangle(0, 0, Konstantj.ludLargx,Konstantj.ludAlt - Konstantj.altSubmenu);
 		
 	}

@@ -27,7 +27,7 @@ public class Superficdesegn extends Canvas {
 	
 	public Superficdesegn() {
 		
-		this.largx = Konstantj.nunlargxFenestrS;
+		this.largx = Konstantj.nunlargxFenestr;
 		this.alt = Konstantj.nunaltFenestr;
 		this.muy = new Muy(this);
 		

@@ -23,6 +23,7 @@ public class YargxilAzhj {
 		try{
 			i = ImageIO.read(ClassLoader.class.getResource("/images" + itener));
 		} catch(IOException e) {
+			System.out.println("CONO DE SU MAQUINA");
 			e.printStackTrace();
 		}
 		
@@ -46,6 +47,7 @@ public class YargxilAzhj {
 			i = ImageIO.read(ClassLoader.class.getResource("/images" + itener));
 			i = i.getScaledInstance((int) (i.getWidth(null)/ie), (int) (i.getHeight(null)/ie), Image.SCALE_SMOOTH);
 		} catch(IOException e) {
+			System.out.println("CONO DE SU MAQUINA");
 			e.printStackTrace();
 		}
 		
@@ -73,6 +75,7 @@ public class YargxilAzhj {
 			while((line = r.readLine()) != null)
 				enhav += line;
 		} catch(IOException e) {
+			System.out.println("CONO DE SU MAQUINA");
 			e.getStackTrace();
 		} finally {
 			try {
@@ -97,6 +100,7 @@ public class YargxilAzhj {
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, bajtenir);
 		} catch (FontFormatException | IOException e) {
+			System.out.println("CONO DE SU MAQUINA");
 			e.printStackTrace();
 			font = new Font(Font.SANS_SERIF, Font.PLAIN, 9);
 		}

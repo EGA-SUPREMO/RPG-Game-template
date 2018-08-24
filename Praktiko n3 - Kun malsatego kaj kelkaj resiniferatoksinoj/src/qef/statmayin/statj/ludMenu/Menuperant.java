@@ -29,6 +29,12 @@ public class Menuperant implements Statlud {
 		
 		for(int i = 0; i<sekcij.length;i++)
 			if(muy.qclickn() && muy.rectangleReskalitPosicin().intersects(sekcij[i].ETIKED_MENU)) {
+				if (sekcij[i] instanceof  ArmazhMenu) {
+					ArmazhMenu sekci = (ArmazhMenu) sekcij[i];
+					if (sekci.selektat != null) {
+						sekci.selektat = null;
+					}
+				}
 				aktivsekci = sekcij[i];
 				break;
 			}

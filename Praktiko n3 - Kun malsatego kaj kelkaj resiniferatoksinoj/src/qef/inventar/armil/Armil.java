@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import qef.Konstantj;
+import qef.estazhj.vivazhj.Vivazh;
 import qef.inventar.Objekt;
 import qef.sprite.SpriteFoli;
 
@@ -35,11 +36,11 @@ public abstract class Armil extends Objekt {
 		
 	}
 	
-	public abstract ArrayList<Rectangle> atingec();
-	
 	@Override
 	public BufferedImage spriten() {
 		return ArmilSpriteFoli.spritejn(Konstantj.KVANT_KONSUMEBL_OBJEKT - id);
 	}
+
+	public abstract ArrayList<Rectangle> atingec(Vivazh vivazh);
 	
 }

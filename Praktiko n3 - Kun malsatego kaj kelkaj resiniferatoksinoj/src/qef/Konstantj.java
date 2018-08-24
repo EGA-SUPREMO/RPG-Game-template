@@ -27,7 +27,7 @@ public abstract class Konstantj {
 	public static int plejfenestrLargx = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static int plejfenestrAlt = Toolkit.getDefaultToolkit().getScreenSize().height;
 	
-	public static int nunlargxFenestrS = plejfenestrLargx, nunaltFenestr = plejfenestrAlt;
+	public static int nunlargxFenestr = plejfenestrLargx, nunaltFenestr = plejfenestrAlt;
 	
 	public static double faktorX = (double) plejfenestrLargx / (double) ludLargx;
 	public static double faktorY = (double) plejfenestrAlt / (double) ludAlt;
@@ -56,7 +56,11 @@ public abstract class Konstantj {
 	
 	public final static String SUFIX_MAP = ".egam";
 	public final static String ITENER_MAP = "/maps/";
-	public final static String ITENER_LUDANT = "/entities/player_";
+
+	public final static String ITENER_VIVAZH = "/entities/";
+	public final static String ITENER_LUDANT = ITENER_VIVAZH + "player_";
+	public final static String ITENER_MALAMIK = ITENER_VIVAZH + "enemy_";
+	public final static String ITENER_ZOMBI = ITENER_MALAMIK + "zombie_";
 
 	public final static String ITENER_OBJEKTJ = "/objects/";
 	public final static String ITENER_OBJEKT_ARMIL = ITENER_OBJEKTJ + "/weapons/";

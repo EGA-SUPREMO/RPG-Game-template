@@ -11,6 +11,8 @@ public class Qefperant {
 //	private Fenestr fenestr;
 	
 	public static void main(String[] args) {
+		//Nur por OpenGL en Mac/Linux
+		//System.setProperty("sun.java2d.opengl", "True");
 		Qefperant qp = new Qefperant("Kun malsatego kaj kelkaj resiniferatoksinoj...", Konstantj.plejfenestrLargx,
 			Konstantj.plejfenestrAlt);
 		
@@ -20,7 +22,7 @@ public class Qefperant {
 	
 	private Qefperant(final String titolo, final int largx, final int alt) {
 		titol = titolo;
-		Konstantj.nunlargxFenestrS = largx;
+		Konstantj.nunlargxFenestr = largx;
 		Konstantj.nunaltFenestr = alt;
 	}
 	
@@ -78,13 +80,10 @@ public class Qefperant {
 			fpsAkumulita++;
 			
 			if ((System.nanoTime() - referenciaContador) > NS_POR_SEGUNDO) {
-				//System.out.println(Konstantj.fps);
 				Konstantj.qiufps += fpsAkumulita;
 				Konstantj.aps = apsAkumulita;
 				Konstantj.fps = fpsAkumulita;
 				Konstantj.sekundjPasita++;
-/*				System.out.println("Promedio de fps po sekundo: " + Konstantj.qiufps/Konstantj.sekundjPasita + ". Sekundoj pasitaj: " +
-					Konstantj.sekundjPasita + ". Nuna FPS: " + Konstantj.fpsAkumulita + ".");*/
 				apsAkumulita = 0;
 				fpsAkumulita = 0;
 				referenciaContador = System.nanoTime();

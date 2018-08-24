@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import qef.Konstantj;
 import qef.QefObjektj;
+import qef.estazhj.Estazhregistril;
+import qef.estazhj.vivazhj.Vivazh;
 import qef.ilj.DebugDesegn;
 import qef.ilj.Kvantperant;
 import qef.ilj.YargxilAzhj;
@@ -24,6 +26,7 @@ public class Map {
 	private final boolean[] kolicij;
 	public final ArrayList<Rectangle> arejKolici;
 	private final ArrayList<Objektar> objektarj;
+	public final ArrayList<Vivazh> vivazharj;
 	private final Rectangle arejVenontMap;
 	private final int posiciXVenontMap;
 	private final int posiciYVenontMap;
@@ -55,14 +58,28 @@ public class Map {
 		arejVenontMap = new Rectangle(posiciXVenontMap, posiciYVenontMap, Konstantj.SPRITELARGX, Konstantj.SPRITEALT);
 		
 		venontMap = Integer.parseInt(venontMapDatumj[2]);
-		
-		if(enhav.length>8)
-			objektarj = elObjektar(enhav[8]);
-		else
-			objektarj = new ArrayList<>();
+
+		objektarj = elObjektarn(enhav[8]);
+		vivazharj = elVivazharjn(enhav[9]);
 	}
 	
-	private ArrayList<Objektar> elObjektar(String str) {
+	private ArrayList<Vivazh> elVivazharjn(String str) {
+		ArrayList<Vivazh> malamikj = new ArrayList<>();
+        String[] informacionEnemigosSeparada = str.split("#");
+        for (int i = 0; i < informacionEnemigosSeparada.length; i++) {
+            String[] informacionEnemigoActual = informacionEnemigosSeparada[i].split(":");
+            String[] coordenadas = informacionEnemigoActual[0].split(",");
+            String idEnemigo = informacionEnemigoActual[1];
+
+            Vivazh vivazh = (Vivazh) Estazhregistril.estazhjn(Integer.parseInt(idEnemigo));
+            vivazh.setX(Integer.parseInt(coordenadas[0]) * Konstantj.SPRITEFLANK);
+            vivazh.setY(Integer.parseInt(coordenadas[1]) * Konstantj.SPRITEFLANK);
+            malamikj.add(vivazh);
+        }
+		return malamikj;
+	}
+
+	private ArrayList<Objektar> elObjektarn(String str) {
 		final ArrayList<Objektar> objektar = new ArrayList<>();
 		
 		for(String info_objektar: str.split(":")) {
@@ -138,10 +155,12 @@ public class Map {
 				DebugDesegn.desegnBildn(map[x + y * largx], (int) (Kvantperant.koordenadXalPosici(
 						x*Konstantj.SPRITELARGX)), (int) (Kvantperant.koordenadYalPosici(y * Konstantj.SPRITEALT)));
 		
-		if(!objektarj.isEmpty()) 
+		if(!objektarj.isEmpty())
 			for(Objektar nun: objektarj)
 				nun.desegn();
-		
+		if(!vivazharj.isEmpty())
+			for(Vivazh nun: vivazharj)
+				nun.desegn();
 		
 	}
 	

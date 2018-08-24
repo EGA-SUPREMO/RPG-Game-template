@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import qef.QefObjektj;
+import qef.estazhj.vivazhj.Vivazh;
 
 public class DebugDesegn {
 	
@@ -81,9 +82,15 @@ public class DebugDesegn {
 		
 		for(int i = 0; i < QefObjektj.map.arejKolici.size(); i++)
 			desegnMargxenRectangle(QefObjektj.map.arejKolici.get(i));
-		
+
 		for(int i = 0; i < 4; i++)
 			desegnRectangle(QefObjektj.ludant.LIMJN()[i]);
+		
+		for(Vivazh nun : QefObjektj.map.vivazharj)
+			for(int i = 0; i < nun.LIMJN().length; i++)
+				desegnMargxenRectangle((int) Kvantperant.koordenadXalPosici(nun.LIMJN()[i].x), 
+						(int) Kvantperant.koordenadYalPosici(nun.LIMJN()[i].y), nun.LIMJN()[i].width,
+						nun.LIMJN()[i].height);
 		
 	}
 	public static void setFont(final Font font) {

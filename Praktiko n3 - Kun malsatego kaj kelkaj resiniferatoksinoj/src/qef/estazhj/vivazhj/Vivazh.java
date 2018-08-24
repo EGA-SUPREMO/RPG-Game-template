@@ -2,6 +2,7 @@ package qef.estazhj.vivazhj;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import qef.Konstantj;
 import qef.QefObjektj;
@@ -22,7 +23,7 @@ public abstract class Vivazh implements Estazh {
 	 * 
 	 */
 	protected double x, y;
-	protected final Rectangle[] LIMJ = new Rectangle[4];
+	protected final Rectangle[] LIMJ;
 	protected BufferedImage[] bildj;
 	protected boolean movante;
 	protected int nunBild;
@@ -55,13 +56,14 @@ public abstract class Vivazh implements Estazh {
 	private boolean qkur;					//vcio de la Animacion*/
 	protected int largxVivazh, altVivazh;
 	protected Integer /*resistenc = Konstantj.plejResistenc,*/ restarigad = 0;//resistenco kaj re-starigado
-	protected int viv;
+	protected int viv, plejviv;
 	private int damagx;
+	protected ArrayList<Rectangle> nunatingec;
 
-	public Vivazh(final int ordenSpec, final SpriteFoli sprite) {
+	public Vivazh(final int ordenSpec, final int limj, final SpriteFoli sprite) {
 		
-		this.largxVivazh = 16;
-		this.altVivazh = 16;
+		this.largxVivazh = 32;
+		this.altVivazh = 32;
 		this.animacistat = 0;
 		this.nunBild = 0;
 		this.rapidec = 0.7f;
@@ -71,26 +73,21 @@ public abstract class Vivazh implements Estazh {
 		this.direkt = 1;
 		this.movante = false;
 		this.frekvenciAnimaci = 10;
-		this.x = QefObjektj.map.xLudantn();
-		this.y = QefObjektj.map.yLudantn();
+		x = 0;
+		y = 0;
 		this.viv = 100;
+		this.plejviv = viv;
 		this.damagx = 100;
+		nunatingec = new ArrayList<>();
 		vivazharmilar = new Vivazharmilar((Armil) Objektregistril.objektjn(599));
-		this.LIMJ[0] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt - altVivazh,
-				Konstantj.SPRITELARGX - 2, 1);
-		this.LIMJ[1] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt + altVivazh - 1,
-				Konstantj.SPRITELARGX - 2, 1);
-		this.LIMJ[2] = new Rectangle(Konstantj.duonLudLargx - largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
-				Konstantj.SPRITEALT - 2);
-		this.LIMJ[3] = new Rectangle(Konstantj.duonLudLargx + largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
-				Konstantj.SPRITEALT - 2);
+		LIMJ = new Rectangle[limj];
 		
 		ordenBildj(ordenSpec, sprite.spritejn());
 		
 	}
 	
-	public Vivazh(final int ordenSpec, final float rapidec, final int largxVivazh, final int altVivazh, final
-			int viv, final Rectangle[] limj, final SpriteFoli sprite) {
+	public Vivazh(final int ordenSpec, final float rapidec, final int largxVivazh, final int altVivazh, final 
+			int plejviv, final Rectangle[] limj, final SpriteFoli sprite) {
 		
 		this.largxVivazh = largxVivazh;
 		this.altVivazh = altVivazh;
@@ -100,10 +97,11 @@ public abstract class Vivazh implements Estazh {
 		this.movante = false;
 		this.direkt = 1;
 		this.frekvenciAnimaci = 10;
-		this.viv = viv;
-		for(int i = 0; i < limj.length;i++)
-			this.LIMJ[i] = limj[i];
-		
+		this.viv = plejviv;
+		this.plejviv = plejviv;
+		LIMJ = limj;
+
+		nunatingec = new ArrayList<>();
 		vivazharmilar = new Vivazharmilar((Armil) Objektregistril.objektjn(599));
 		
 		ordenBildj(ordenSpec, sprite.spritejn());
@@ -326,9 +324,10 @@ public abstract class Vivazh implements Estazh {
 			return false;
 		}
 	}
-	
+	@Override
 	public void desegn() {}
 	
+	@Override
 	public void gxisdatig() {}
 	
 	public double rapidecn() {
@@ -401,5 +400,11 @@ public abstract class Vivazh implements Estazh {
 /*	public void setResistenc(final int resistenc) {
 		this.resistenc = resistenc;
 	}*/
+	public ArrayList<Rectangle> nunatingecn() {
+		return nunatingec;
+	}
+	public int direktn() {
+		return direkt;
+	}
 	
 }

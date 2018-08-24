@@ -1,8 +1,10 @@
 package qef.estazhj.vivazhj;
 
+import java.awt.Rectangle;
 import java.awt.Transparency;
 
 import qef.Konstantj;
+import qef.QefObjektj;
 import qef.ilj.DebugDesegn;
 import qef.inventar.armil.Armil;
 import qef.inventar.armil.Senarma;
@@ -13,17 +15,36 @@ import qef.uzantinterfac.Text;
 public class Ludant extends Vivazh {
 	
 	private int experienc = 100;
-	private static final SpriteFoli armatludantsprite = new SpriteFoli(Konstantj.ITENER_LUDANT + 1 + ".png", 32,
+	public static final SpriteFoli armatludantsprite = new SpriteFoli(Konstantj.ITENER_LUDANT + 1 + ".png", 32,
 			Transparency.TRANSLUCENT, 128);
-	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32,
-			Transparency.TRANSLUCENT, 128);//TODO Mi eble unigos cxi tion en unu "array"
+//	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_ZOMBI + 0 + ".png", 32,
+//			Transparency.TRANSLUCENT, 128);//TODO Mi eble unigos cxi tion en unu "array"
+	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_ZOMBI + 0 + ".png", 32,
+			Transparency.TRANSLUCENT);
+
+	//public static final SpriteFoli lol = SpriteFoliregistril.KreZombiSpriteFolin(0);
 	
 	public Ludant() {
-		super(0, new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32, Transparency.TRANSLUCENT, 128));
+		super(0, 4, new SpriteFoli(Konstantj.ITENER_ZOMBI + 1 + ".png", 32, Transparency.TRANSLUCENT));
+		
+		this.x = QefObjektj.map.xLudantn();
+		this.y = QefObjektj.map.yLudantn();
+		largxVivazh = 16;
+		altVivazh = 16;
+		
+		this.LIMJ[0] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt - altVivazh,
+				Konstantj.SPRITELARGX - 2, 1);
+		this.LIMJ[1] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt + altVivazh - 1,
+				Konstantj.SPRITELARGX - 2, 1);
+		this.LIMJ[2] = new Rectangle(Konstantj.duonLudLargx - largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
+				Konstantj.SPRITEALT - 2);
+		this.LIMJ[3] = new Rectangle(Konstantj.duonLudLargx + largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
+				Konstantj.SPRITEALT - 2);
 	}
 	
 	@Override
 	public void gxisdatig() {
+		kalkulAtingecn();
 		yangxMapn();
 		yangxResistencn();
 		yangxSpriten();
@@ -36,40 +57,36 @@ public class Ludant extends Vivazh {
 		boolean[] kolicie = {qnekolicie(0), qnekolicie(1), qnekolicie(2), qnekolicie(3), qena()};
 		
 		if(Kontrolperant.klavar.supr.pulsitan() && kolicie[0]) {
+			movante = true;
 			if(Kontrolperant.klavar.dextr.pulsitan() && kolicie[3]) {
-				movante = true;
 				direkt = 5;
 				yangxRapidec();
 				pliX();
 				mlpliY();
 			}else if(Kontrolperant.klavar.mldextr.pulsitan() && kolicie[2]) {
-				movante = true;
 				direkt = 8;
 				yangxRapidec();
 				mlpliX();
 				mlpliY();
 			}else {
-				movante = true;
 				direkt = 4;
 				yangxRapidec();
 				mlpliY();
 			}
 		}
 		if(Kontrolperant.klavar.sub.pulsitan() && kolicie[1]) {
+			movante = true;
 			if(Kontrolperant.klavar.dextr.pulsitan() && kolicie[3]) {
-				movante = true;
 				direkt = 7;
 				yangxRapidec();
 				pliX();
 				pliY();
 			}else if(Kontrolperant.klavar.mldextr.pulsitan() && kolicie[2]) {
-				movante = true;
 				direkt = 3;
 				yangxRapidec();
 				mlpliX();
 				pliY();
 			}else {
-				movante = true;
 				direkt = 2;
 				yangxRapidec();
 				pliY();
@@ -86,17 +103,10 @@ public class Ludant extends Vivazh {
 			direkt = 1;
 			yangxRapidec();
 			pliX();
-			
 		}
 		
 	}
-	/*
-	private void yangxResistencn() {
-		if(restarigad < Konstantj.plejRestarigad && !Kontrolperant.klavar.kuri)
-			restarigad++;
-		else if(restarigad == Konstantj.plejRestarigad && resistenc < Konstantj.plejResistenc)
-			resistenc++;
-	}*/
+
 	
 	private void yangxResistencn() {
 		if(restarigad < Konstantj.plejRestarigad && !Kontrolperant.klavar.kuri)
@@ -131,18 +141,17 @@ public class Ludant extends Vivazh {
 		
 	}
 	
+	private void kalkulAtingecn() {
+        if (vivazharmilar.armil1n() instanceof  Senarma) {
+            return;
+        }
+
+        nunatingec = vivazharmilar.armil1n().atingec(this);
+    }
+
 	@Override
 	public void desegn() {
-		
 		DebugDesegn.desegnBildn(bildj[nunBild], Konstantj.largxCentr, Konstantj.altCentr);
-//		g.drawImage(bildj[nunBild], Konstantj.largxCentr, Konstantj.altCentr, null);
-/*		g.drawRect(LIMJ[0].x, LIMJ[0].y, LIMJ[0].width, LIMJ[0].height);
-		g.drawRect(LIMJ[1].x, LIMJ[1].y, LIMJ[1].width, LIMJ[1].height);
-		g.drawRect(LIMJ[2].x, LIMJ[2].y, LIMJ[2].width, LIMJ[2].height);
-		g.drawRect(LIMJ[3].x, LIMJ[3].y, LIMJ[3].width, LIMJ[3].height);*/
-		//g.fillRect(0, 0, (int) (Konstantj.fenestrLargx/1.7), (int) (Konstantj.fenestrAlt/1.7));
-		//((Graphics2D)g).drawImage(sprite.spritejn(0, direkt), AffineTransform.getRotateInstance(x/16, 64,64), null);
-		
 	}
 	
 	public int experiencn() {
