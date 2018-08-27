@@ -25,6 +25,10 @@ public class YargxilAzhj {
 		} catch(IOException e) {
 			System.out.println("CONO DE SU MAQUINA");
 			e.printStackTrace();
+		} catch(Exception e) {
+			System.out.println("/images" + itener);
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause().getLocalizedMessage());
 		}
 		
 		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
@@ -49,6 +53,10 @@ public class YargxilAzhj {
 		} catch(IOException e) {
 			System.out.println("CONO DE SU MAQUINA");
 			e.printStackTrace();
+		} catch(Exception e) {
+			System.out.println("/images" + itener);
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause().getLocalizedMessage());
 		}
 		
 		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();

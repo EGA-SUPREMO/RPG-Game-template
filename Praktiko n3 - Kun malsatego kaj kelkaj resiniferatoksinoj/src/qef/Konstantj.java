@@ -63,7 +63,7 @@ public abstract class Konstantj {
 	public final static String ITENER_ZOMBI = ITENER_MALAMIK + "zombie_";
 
 	public final static String ITENER_OBJEKTJ = "/objects/";
-	public final static String ITENER_OBJEKT_ARMIL = ITENER_OBJEKTJ + "/weapons/";
+	public final static String ITENER_OBJEKT_ARMIL = ITENER_OBJEKTJ + "weapons/";
 	
 	public final static String ITENER_OBJEKT_OBJEKTAR = ITENER_OBJEKTJ + "sack.png";
 

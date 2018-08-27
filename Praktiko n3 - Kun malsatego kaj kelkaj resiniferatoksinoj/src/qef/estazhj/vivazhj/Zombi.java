@@ -25,7 +25,7 @@ public class Zombi extends Vivazh {
 		final int posiciY = (int) Kvantperant.koordenadYalPosici(y);
 		DebugDesegn.desegnBildn(bildj[nunBild], posiciX, posiciY);
 		DebugDesegn.desegnRectangle(posiciX, posiciY - 5, largxVivazh * viv/plejviv, 3, Color.RED);
-		DebugDesegn.desegnString(String.format("%.5f", Kvantperant.kakulDistancn((int) x +
+		DebugDesegn.desegnString(String.format("%.4f", Kvantperant.kakulDistancn((int) x +
 				QefObjektj.ludant.largxVivazh/2, (int) y + QefObjektj.ludant.altVivazh/2, (int) QefObjektj.ludant.x,
 				(int) QefObjektj.ludant.y)/Konstantj.SPRITEFLANK), (int) posiciX, (int) posiciY - 7);
 	}

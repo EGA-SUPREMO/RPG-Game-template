@@ -19,13 +19,13 @@ public class Ludant extends Vivazh {
 			Transparency.TRANSLUCENT, 128);
 //	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_ZOMBI + 0 + ".png", 32,
 //			Transparency.TRANSLUCENT, 128);//TODO Mi eble unigos cxi tion en unu "array"
-	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_ZOMBI + 0 + ".png", 32,
-			Transparency.TRANSLUCENT);
+	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32,
+			Transparency.TRANSLUCENT, 128);
 
 	//public static final SpriteFoli lol = SpriteFoliregistril.KreZombiSpriteFolin(0);
 	
 	public Ludant() {
-		super(0, 4, new SpriteFoli(Konstantj.ITENER_ZOMBI + 1 + ".png", 32, Transparency.TRANSLUCENT));
+		super(0, 4, senarmatludantsprite);
 		
 		this.x = QefObjektj.map.xLudantn();
 		this.y = QefObjektj.map.yLudantn();
