@@ -80,13 +80,13 @@ public class DebugDesegn {
 	
 	public static void desegnKolicijn() {
 		
-		for(int i = 0; i < QefObjektj.map.arejKolici.size(); i++)
-			desegnMargxenRectangle(QefObjektj.map.arejKolici.get(i));
+		for(int i = 0; i < QefObjektj.map.gxisdatigitArejKolici.size(); i++)
+			desegnMargxenRectangle(QefObjektj.map.gxisdatigitArejKolici.get(i));
 
 		for(int i = 0; i < 4; i++)
 			desegnRectangle(QefObjektj.ludant.LIMJN()[i]);
 		
-		for(Vivazh nun : QefObjektj.map.vivazharj)
+		for(Vivazh nun : QefObjektj.map.vivazhar)
 			for(int i = 0; i < nun.LIMJN().length; i++)
 				desegnMargxenRectangle((int) Kvantperant.koordenadXalPosici(nun.LIMJN()[i].x), 
 						(int) Kvantperant.koordenadYalPosici(nun.LIMJN()[i].y), nun.LIMJN()[i].width,

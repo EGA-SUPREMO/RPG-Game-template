@@ -81,9 +81,9 @@ public class Superficdesegn extends Canvas {
 		DebugDatum.addDatumn("Restarigado: " + QefObjektj.ludant.restarigadn());
 		DebugDatum.addDatumn("Faktoro X: " + Konstantj.faktorX);
 		DebugDatum.addDatumn("Faktoro Y: " + Konstantj.faktorY);
-		DebugDatum.addDatumn("Venonta mapo: " + QefObjektj.map.venontMapn());
+/*		DebugDatum.addDatumn("Venonta mapo: " + QefObjektj.map.venontMapn());
 		DebugDatum.addDatumn("Komenca posicio X: " + QefObjektj.map.xLudantn());
-		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.map.yLudantn());
+		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.map.yLudantn());*/
 		DebugDatum.addDatumn("OPF: " + DebugDesegn.objektjDesegnitan());
 		
 		DebugDatum.addDatumn("RX: " + muy.posicin().x);

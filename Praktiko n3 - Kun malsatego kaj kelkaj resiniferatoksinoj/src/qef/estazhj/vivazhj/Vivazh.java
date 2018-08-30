@@ -4,13 +4,12 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import qef.Konstantj;
 import qef.QefObjektj;
+import qef.dijkstra.Nod;
 import qef.estazhj.Estazh;
 import qef.ilj.Bildperant;
 import qef.inventar.Objektregistril;
 import qef.inventar.armil.Armil;
-import qef.map.Map;
 import qef.sprite.SpriteFoli;
 
 public abstract class Vivazh implements Estazh {
@@ -59,6 +58,7 @@ public abstract class Vivazh implements Estazh {
 	protected int viv, plejviv;
 	private int damagx;
 	protected ArrayList<Rectangle> nunatingec;
+	protected Nod venontNod;
 
 	public Vivazh(final int ordenSpec, final int limj, final SpriteFoli sprite) {
 		
@@ -223,14 +223,14 @@ public abstract class Vivazh implements Estazh {
 	}
 	
 	protected void yangxMapn() {
-		if(QefObjektj.map.arejVenontMapn().intersects(LIMJ[0])) {
+/*		if(QefObjektj.map.arejVenontMapn().intersects(LIMJ[0])) {
 			
 			QefObjektj.map = new Map(QefObjektj.map.venontMapn());
 			
 			x = QefObjektj.map.xLudantn();
 			y = QefObjektj.map.yLudantn();
 			
-		}
+		}*/
 	}
 	
 	protected boolean qnekolicie(final int direkt) {
@@ -258,8 +258,8 @@ public abstract class Vivazh implements Estazh {
 				direktY = 0;
 		}
 		
-		for(int i = 0; i < QefObjektj.map.arejKolici.size();i++) {
-			final Rectangle area = QefObjektj.map.arejKolici.get(i);
+		for(int i = 0; i < QefObjektj.map.gxisdatigitArejKolici.size();i++) {
+			final Rectangle area = QefObjektj.map.gxisdatigitArejKolici.get(i);
 			
 			final int origenX = area.x + (direktX * (int) rapidec << 1);
 			final int origenY = area.y + (direktY * (int) rapidec << 1);
@@ -267,7 +267,9 @@ public abstract class Vivazh implements Estazh {
 			/*final int origenX = area.x + direktX * (int) Math.round(rapidec) + 3 * (int) rapidec; //por fari pli reala
 			final int origenY = area.y + direktY * (int) Math.round(rapidec) + 3 * (int) Math.round(rapidec);*/
 			
-			if (LIMJ[direkt].intersects(new Rectangle(origenX, origenY, Konstantj.SPRITELARGX, Konstantj.SPRITEALT))) {
+			if (LIMJ[direkt].intersects(new Rectangle(origenX, origenY,
+					QefObjektj.map.gxisdatigitArejKolici.get(i).width,
+					QefObjektj.map.gxisdatigitArejKolici.get(i).height))) {
 				return false;
 			}
 		}
@@ -405,6 +407,12 @@ public abstract class Vivazh implements Estazh {
 	}
 	public int direktn() {
 		return direkt;
+	}
+	public Rectangle nunposiciare() {
+		return new Rectangle((int) x, (int) y, largxVivazh, altVivazh);
+	}
+	public void setVenontNodn(final Nod nod) {
+		venontNod = nod;
 	}
 	
 }

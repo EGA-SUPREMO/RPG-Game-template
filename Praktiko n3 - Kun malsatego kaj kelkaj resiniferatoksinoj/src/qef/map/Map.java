@@ -6,356 +6,324 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.ParseException;
+import org.json.simple.parser.JSONParser;
+
 import qef.Konstantj;
 import qef.QefObjektj;
+import qef.dijkstra.Dijkstra;
 import qef.estazhj.Estazhregistril;
 import qef.estazhj.vivazhj.Vivazh;
 import qef.ilj.DebugDesegn;
 import qef.ilj.Kvantperant;
 import qef.ilj.YargxilAzhj;
+import qef.inventar.Objekt;
 import qef.inventar.Objektar;
-import qef.kontrolj.Kontrolperant;
+import qef.inventar.Objektregistril;
 import qef.sprite.SpriteFoli;
 
 public class Map {
 	
-//	private Random r = new Random();
-	private final int largx, alt;
-	private final int xLudant;
-	private final int yLudant;
-	private final boolean[] kolicij;
-	public final ArrayList<Rectangle> arejKolici;
-	private final ArrayList<Objektar> objektarj;
-	public final ArrayList<Vivazh> vivazharj;
-	private final Rectangle arejVenontMap;
-	private final int posiciXVenontMap;
-	private final int posiciYVenontMap;
-	private final int venontMap;
-	private BufferedImage[] map;
-	private BufferedImage[] spritear;
+	private int tileeMaplargx;
+	private int tileeMapalt;
+
+	public int komencpunktX;
+	public int komencpunktY;
 	
+	private ArrayList<Spritetavol> spritetavolj;
+	
+	public ArrayList<Rectangle> arejKolici;
+	public ArrayList<Rectangle> gxisdatigitArejKolici;
+	
+	private BufferedImage[] paletrsprite;
+	
+	private Dijkstra d;
+	
+	public ArrayList<Objektar> objektarj;
+	public ArrayList<Vivazh> vivazhar;
+
 	public Map(final int itener) {
+		String enhav = YargxilAzhj.yargxTextn(Konstantj.ITENER_MAP + itener + ".tmx");
 		
-		arejKolici = new ArrayList<>();
+		final JSONObject globalJSON = JSONObjektn(enhav);
+		tileeMaplargx = intAlJSONn(globalJSON, "width");
+		tileeMapalt = intAlJSONn(globalJSON, "height");
 		
-		final String[] enhav = YargxilAzhj.yargxTextn(Konstantj.ITENER_MAP + itener + Konstantj.SUFIX_MAP).split("@");
+		final JSONObject komencPunkt = JSONObjektn(globalJSON.get("start").toString());
+		komencpunktX = intAlJSONn(komencPunkt, "x"); 
+		komencpunktY = intAlJSONn(komencPunkt, "y");
 		
-		largx = Integer.parseInt(enhav[0]);
-		alt = Integer.parseInt(enhav[1]);
-		spritear = elSprites(enhav[2].split(","), enhav[3].split("\\."));
-		kolicij = elKolicijn(enhav[4]);
-		map = elMapn(enhav[5].toCharArray());
+		final JSONArray tavolj = JSONArrayn(globalJSON.get("layers").toString());
 		
-		final String[] komencPosici = enhav[6].split("_");
+		spritetavolj = new ArrayList<>();
+		final ArrayList<Kolizitavol> kolizitavolj = new ArrayList<>();
 		
-		xLudant = Integer.parseInt(komencPosici[0]);
-		yLudant = Integer.parseInt(komencPosici[1]);
-		
-		final String[] venontMapDatumj = enhav[7].split("_");
+		//INICIAR CAPAS
+		for (int i = 0; i < tavolj.size(); i++) {
+			JSONObject tavoldatumj = JSONObjektn(tavolj.get(i).toString());
 
-		posiciXVenontMap = Integer.parseInt(venontMapDatumj[0]);
-		posiciYVenontMap = Integer.parseInt(venontMapDatumj[1]);
-		arejVenontMap = new Rectangle(posiciXVenontMap, posiciYVenontMap, Konstantj.SPRITELARGX, Konstantj.SPRITEALT);
-		
-		venontMap = Integer.parseInt(venontMapDatumj[2]);
-
-		objektarj = elObjektarn(enhav[8]);
-		vivazharj = elVivazharjn(enhav[9]);
-	}
-	
-	private ArrayList<Vivazh> elVivazharjn(String str) {
-		ArrayList<Vivazh> malamikj = new ArrayList<>();
-        String[] informacionEnemigosSeparada = str.split("#");
-        for (int i = 0; i < informacionEnemigosSeparada.length; i++) {
-            String[] informacionEnemigoActual = informacionEnemigosSeparada[i].split(":");
-            String[] coordenadas = informacionEnemigoActual[0].split(",");
-            String idEnemigo = informacionEnemigoActual[1];
-
-            Vivazh vivazh = (Vivazh) Estazhregistril.estazhjn(Integer.parseInt(idEnemigo));
-            vivazh.setX(Integer.parseInt(coordenadas[0]) * Konstantj.SPRITEFLANK);
-            vivazh.setY(Integer.parseInt(coordenadas[1]) * Konstantj.SPRITEFLANK);
-            malamikj.add(vivazh);
-        }
-		return malamikj;
-	}
-
-	private ArrayList<Objektar> elObjektarn(String str) {
-		final ArrayList<Objektar> objektar = new ArrayList<>();
-		
-		for(String info_objektar: str.split(":")) {
-			final String[] subinfo_objektar = info_objektar.split("\\.");
+//			int anchoCapa = obtenerIntDesdeJSON(datosCapa, "width");TODO MI PETEGAS VIN(MIN) KE "FIX"-U CXI TIO
+//			int altoCapa = obtenerIntDesdeJSON(datosCapa, "height");
+			int tavollargx = tileeMaplargx;
+			int tavolalt = tileeMapalt;
+			int tavolX = intAlJSONn(tavoldatumj, "x");
+			int tavolY = intAlJSONn(tavoldatumj, "y");
 			
-			final String[] strPosici = subinfo_objektar[0].split("_");
-			final Point posici = new Point(Integer.parseInt(strPosici[0]), Integer.parseInt(strPosici[1]));
-			
-			final String[] strObjekt = subinfo_objektar[1].split(",");
-			final int[] objektId = new int[strObjekt.length];
-			final int[] objektKvant = new int[strObjekt.length];
-			
-			for(int i = 0; i < strObjekt.length; i++) {
-				final String[] subobjekt = strObjekt[i].split("_");
-
-				objektId[i] = Integer.parseInt(subobjekt[0]);
-				objektKvant[i] = Integer.parseInt(subobjekt[1]);
+			switch(tavoldatumj.get("type").toString()) {
+			case "tilelayer":
+				JSONArray spritej = JSONArrayn(tavoldatumj.get("data").toString());
+				int[] spritejTavol = new int[spritej.size()];
+				for (int j = 0; j< spritej.size(); j++) {
+					int spriteId = Integer.parseInt(spritej.get(j).toString());
+					spritejTavol[j] = spriteId - 1;
+				}
+				spritetavolj.add(new Spritetavol(tavollargx, tavolalt, tavolX, tavolY, spritejTavol));
+				break;
+			case "objectgroup":
+				JSONArray rectangulos = JSONArrayn(tavoldatumj.get("objects").toString());
+				Rectangle[] rectangulosCapa = new Rectangle[rectangulos.size()];
+				for (int j = 0; j < rectangulos.size(); j++) {
+					JSONObject datosRectangulo = JSONObjektn(rectangulos.get(j).toString());
+					
+					int x = intAlJSONn(datosRectangulo, "x");
+					int y = intAlJSONn(datosRectangulo, "y");
+					int largx = intAlJSONn(datosRectangulo, "width");
+					int alt = intAlJSONn(datosRectangulo, "height");
+					/*boolean qtransenebl = false;
+					if(datosRectangulo.get("properties")!=null) {
+						JSONObject pasable = JSONObjektn(datosRectangulo.get("properties").toString());
+						String passable = pasable.get("passable").toString();
+						qtransenebl = passable != null && passable.equals("true");
+					}
+					System.out.println(qtransenebl);*/
+					if (x == 0) x = 1;
+					if (y == 0) y = 1;
+					if (largx == 0) largx = 1;
+					if (alt == 0) alt = 1;
+					
+					Rectangle rectangulo = new Rectangle(x, y, largx, alt);
+					rectangulosCapa[j] = rectangulo;
+				}
+				kolizitavolj.add(new Kolizitavol(tavollargx, tavolalt, tavolX, tavolY, rectangulosCapa));
+				
+				break;
 			}
-			Objektar nov = new Objektar(posici, objektId, objektKvant);
-			objektar.add(nov);
 		}
 		
-		return objektar;
-	}
-
-	public void gxisdatig() {
-		gxisdatigArejKolicin();
-		gxisdatigArejn();
-		gxisdatigObjektj();
+		//COMBINAR COLISIONES EN UN SOLO ARRAYLIST POR EFICIENCIA
+		arejKolici = new ArrayList<>();
+		for (int i = 0; i < kolizitavolj.size(); i++) {
+			Rectangle[] rectangulos = kolizitavolj.get(i).obtenerColisionables();
+			
+			for (int j = 0; j < rectangulos.length; j++) {
+				arejKolici.add(rectangulos[j]);
+			}
+		}
+		
+		d = new Dijkstra(new Point(komencpunktX, komencpunktY), tileeMaplargx, tileeMapalt, arejKolici);
+		//AVERIGUAR TOTAL DE SPRITES EXISTENTES EN TODAS LAS CAPAS
+		JSONArray coleccionesSprites = JSONArrayn(globalJSON.get("tilesets").toString());
+		int totalSprites = 0;
+		for (int i = 0; i < coleccionesSprites.size(); i++) {
+			JSONObject datosGrupo = JSONObjektn(coleccionesSprites.get(i).toString());
+			totalSprites += intAlJSONn(datosGrupo, "tilecount");
+		}
+		paletrsprite = new BufferedImage[totalSprites];
+		
+		//ASIGNAR SPRITES NECESARIOS A LA PALETA A PARTIR DE LAS CAPAS
+		for (int i = 0; i < coleccionesSprites.size(); i++) {
+			JSONObject datosGrupo = JSONObjektn(coleccionesSprites.get(i).toString());
+			
+			int anchoTiles = intAlJSONn(datosGrupo, "tilewidth");
+			SpriteFoli hoja = new SpriteFoli(Konstantj.ITENER_TILESET_MAP + datosGrupo.get("image").toString(),
+					anchoTiles, Transparency.BITMASK);
+			
+			int primerSpriteColeccion = intAlJSONn(datosGrupo, "firstgid") - 1;
+			int ultimoSpriteColeccion = primerSpriteColeccion + intAlJSONn(datosGrupo, "tilecount") - 1;
+			
+			for (int j = 0; j < this.spritetavolj.size(); j++) {
+				Spritetavol capaActual = this.spritetavolj.get(j);
+				int[] spritesCapa = capaActual.obtenerArraySprites();
+				
+				for (int k = 0; k < spritesCapa.length; k++) {
+					int idSpriteActual = spritesCapa[k];
+					if (idSpriteActual >= primerSpriteColeccion && idSpriteActual <= ultimoSpriteColeccion) {
+						if (paletrsprite[idSpriteActual] == null) {
+							paletrsprite[idSpriteActual] = hoja.spritejn(idSpriteActual - primerSpriteColeccion);
+						}
+					}
+				}
+			}	
+		}
+		
+		//OBTENER OBJETOS
+		objektarj = new ArrayList<>();
+		JSONArray coleccionObjetos = JSONArrayn(globalJSON.get("objetos").toString());
+		for (int i = 0; i < coleccionObjetos.size(); i++) {
+			JSONObject datosObjeto = JSONObjektn(coleccionObjetos.get(i).toString());
+			
+			int idObjeto = intAlJSONn(datosObjeto, "id");
+			int cantidadObjeto = intAlJSONn(datosObjeto, "cantidad");
+			int xObjeto = intAlJSONn(datosObjeto, "x");
+			int yObjeto = intAlJSONn(datosObjeto, "y");
+			
+			Point posicionObjeto = new Point(xObjeto, yObjeto);
+			Objekt objeto = Objektregistril.objektjn(idObjeto);
+			//Objektar objetoUnico = new Objektar(posicionObjeto, objeto, 1);
+			//objetosMapa.add(objetoUnico);
+		}
+		
+		//OBTENER ENEMIGOS
+		vivazhar = new ArrayList<>();
+		JSONArray coleccionEnemigos = JSONArrayn(globalJSON.get("enemigos").toString());
+		for (int i = 0; i < coleccionEnemigos.size(); i++) {
+			JSONObject datosEnemigo = JSONObjektn(coleccionEnemigos.get(i).toString());
+			
+			int idEnemigo = intAlJSONn(datosEnemigo, "id");
+			int xEnemigo = intAlJSONn(datosEnemigo, "x");
+			int yEnemigo = intAlJSONn(datosEnemigo, "y");
+			
+			Point posicionEnemigo = new Point(xEnemigo, yEnemigo);
+			Vivazh enemigo = (Vivazh) Estazhregistril.estazhjn(idEnemigo);
+			enemigo.setX(xEnemigo);
+			enemigo.setY(yEnemigo);
+			
+			vivazhar.add(enemigo);
+		}
+		
+		gxisdatigitArejKolici = new ArrayList<>();
 	}
 	
-	private void gxisdatigObjektj() {
-		if (!objektarj.isEmpty()) {
-        final Rectangle areaJugador = new Rectangle((int)QefObjektj.ludant.xn(),
-                (int)QefObjektj.ludant.yn(), QefObjektj.ludant.largxVivazhn(), QefObjektj.ludant.altVivazhn());
-
-        for (int i = 0; i < objektarj.size(); i++) {
-            final Objektar nunobjektar = objektarj.get(i);
-
-            final Rectangle posicionContenedor = new Rectangle(nunobjektar.posicin().x*Konstantj.SPRITEFLANK,
-                    nunobjektar.posicin().y*Konstantj.SPRITEFLANK, Konstantj.SPRITEFLANK, Konstantj.SPRITEFLANK);
-
-            if (areaJugador.intersects(posicionContenedor) && Kontrolperant.klavar.qkolekt) {
-                QefObjektj.inventar.kolektObjekt(nunobjektar);
-                objektarj.remove(i);
-            }
-        }
-    }
+	public void gxisdatig() {
+		gxisdatigArejKolicin();
+		gxisdatigObjektkolektad();
+		
+		gxisdatigVivazhjn();
+		
 	}
-
+	
 	private void gxisdatigArejKolicin() {
-		if(!arejKolici.isEmpty())
-			arejKolici.clear();
+		if (!gxisdatigitArejKolici.isEmpty()) {
+			gxisdatigitArejKolici.clear();
+		}
 		
-		for(int y = 0; y < alt; y++)
-			for(int x = 0; x < largx; x++)
-				if(kolicij[x + y * largx])
-					arejKolici.add(new Rectangle((int) (Kvantperant.koordenadXalPosici(x * Konstantj.SPRITELARGX)), (int)
-							(Kvantperant.koordenadYalPosici(y * Konstantj.SPRITEALT)), Konstantj.SPRITELARGX, Konstantj.SPRITEALT));
-		
+		for (int i = 0; i < arejKolici.size(); i++) {
+			Rectangle nunRectangle = arejKolici.get(i);
+			
+			gxisdatigitArejKolici.add(new Rectangle((int) Kvantperant.koordenadXalPosici(nunRectangle.x),
+					(int) Kvantperant.koordenadYalPosici(nunRectangle.y), nunRectangle.width, nunRectangle.height));
+		}
 	}
-	private void gxisdatigArejn() {
-		
-		arejVenontMap.x = (int) (Kvantperant.koordenadXalPosici(posiciXVenontMap));
-		arejVenontMap.y = (int) (Kvantperant.koordenadYalPosici(posiciYVenontMap));
+	
+	private void gxisdatigObjektkolektad() {
+/*		if (!objetosMapa.isEmpty()) {
+            final Rectangle areaJugador = new Rectangle(ElementosPrincipales.jugador.obtenerPosicionXInt(),
+                    ElementosPrincipales.jugador.obtenerPosicionYInt(), Constantes.LADO_SPRITE, Constantes.LADO_SPRITE);
+
+            for (int i = 0; i < objetosMapa.size(); i++) {
+                final ObjetoUnicoTiled objetoActual = objetosMapa.get(i);
+
+                final Rectangle posicionObjetoActual = new Rectangle(
+                        objetoActual.obtenerPosicion().x,
+                        objetoActual.obtenerPosicion().y, Constantes.LADO_SPRITE,
+                        Constantes.LADO_SPRITE);
+
+                if (areaJugador.intersects(posicionObjetoActual) && GestorControles.teclado.recogiendo) {
+                    ElementosPrincipales.inventario.recogerObjetos(objetoActual);
+                    objetosMapa.remove(i);
+                }
+            }
+        }*/
+	}
+	
+	private void gxisdatigVivazhjn() {
+		if (!vivazhar.isEmpty()) {
+			for (Vivazh vivazh:vivazhar) {
+				vivazh.setVenontNodn(d.findVenontNodnnPorMalamikj(vivazh));
+				vivazh.gxisdatig();
+			}	
+			
+			Point koincidatPunkt = d.koordinatjDeKoincidatNodDeLudantn((int)QefObjektj.ludant.xn(), (int)
+					QefObjektj.ludant.yn());
+			d.rekomencKajTask(koincidatPunkt);
+		}	
 		
 	}
 	
 	public void desegn() {
-		
-		for(int y = 0; y < alt; y++)
-			for(int x = 0; x < largx; x++)
-				DebugDesegn.desegnBildn(map[x + y * largx], (int) (Kvantperant.koordenadXalPosici(
-						x*Konstantj.SPRITELARGX)), (int) (Kvantperant.koordenadYalPosici(y * Konstantj.SPRITEALT)));
-		
-		if(!objektarj.isEmpty())
-			for(Objektar nun: objektarj)
-				nun.desegn();
-		if(!vivazharj.isEmpty())
-			for(Vivazh nun: vivazharj)
-				nun.desegn();
-		
-	}
-	
-	
-	private BufferedImage[] elMapn(final char[] charMap) {
-		
-		BufferedImage[] sprites = new BufferedImage[charMap.length];
-		
-		for (int i = 0; i < charMap.length; i++)
-			switch (charMap[i]) {
-				case '0':
-					/*switch(r.nextInt(80)) {
-						case 0:
-							sprites[i] = spritear[30];
-							continue;
-						case 1:
-							sprites[i] = spritear[31];
-							continue;
-						case 2:
-							sprites[i] = spritear[33];
-							continue;
-						case 5:
-							sprites[i] = spritear[34];
-							continue;
-						case 6:
-							sprites[i] = spritear[35];
-							continue;
-						case 7:
-							sprites[i] = spritear[31];
-							continue;
-						default:
-							sprites[i] = spritear[0];
-							continue;
-					}*/
-					sprites[i] = spritear[0];
-					continue;
-				case '1':
-					sprites[i] = spritear[1];
-					continue;
-				case '2':
-					sprites[i] = spritear[2];
-					continue;
-				case '3':
-					sprites[i] = spritear[3];
-					continue;
-				case '4':
-					sprites[i] = spritear[4];
-					continue;
-				case '5':
-					sprites[i] = spritear[5];
-					continue;
-				case '6':
-					sprites[i] = spritear[6];
-					continue;
-				case '7':
-					sprites[i] = spritear[7];
-					continue;
-				case '8':
-					sprites[i] = spritear[8];
-					continue;
-				case '9':
-					sprites[i] = spritear[9];
-					continue;
-				case 'a':
-					sprites[i] = spritear[10];
-					continue;
-				case 'b':
-					sprites[i] = spritear[11];
-					continue;
-				case 'c':
-					sprites[i] = spritear[12];
-					continue;
-				case 'd':
-					sprites[i] = spritear[13];
-					continue;
-				case 'e':
-					sprites[i] = spritear[14];
-					continue;
-				case 'f':
-					sprites[i] = spritear[15];
-					continue;
-				case 'g':
-					sprites[i] = spritear[16];
-					continue;
-				case 'h':
-					sprites[i] = spritear[17];
-					continue;
-				case 'i':
-					sprites[i] = spritear[18];
-					continue;
-				case 'j':
-					sprites[i] = spritear[19];
-					continue;
-				case 'k':
-					sprites[i] = spritear[20];
-					continue;
-				case 'l':
-					sprites[i] = spritear[21];
-					continue;
-				case 'm':
-					sprites[i] = spritear[22];
-					continue;
-				case 'n':
-					sprites[i] = spritear[23];
-					continue;
-				case 'o':
-					sprites[i] = spritear[24];
-					continue;
-				case 'p':
-					sprites[i] = spritear[25];
-					continue;
-				case 'q':
-					sprites[i] = spritear[26];
-					continue;
-				case 'r':
-					sprites[i] = spritear[27];
-					continue;
-				case 's':
-					sprites[i] = spritear[28];
-					continue;
-				case 't':
-					sprites[i] = spritear[29];
-					continue;
-				case 'u':
-					sprites[i] = spritear[30];
-					continue;
-				default:
-					sprites[i] = spritear[0];
+		for (int i = 0; i < spritetavolj.size(); i++) {
+			int[] spritesCapa = spritetavolj.get(i).obtenerArraySprites();
+			
+			for (int y = 0; y < tileeMapalt; y++) {
+				for (int x = 0; x < tileeMaplargx; x++) {
+					int idSpriteActual = spritesCapa[x + y * tileeMaplargx];
+					if (idSpriteActual != -1) {
+						int punktX = (int) Kvantperant.koordenadXalPosici(x * Konstantj.SPRITEFLANK);
+						int punktY = (int) Kvantperant.koordenadYalPosici(y * Konstantj.SPRITEFLANK);
+						
+						DebugDesegn.desegnBildn(paletrsprite[idSpriteActual], punktX, punktY);
+					}
+				}
 			}
-		
-		return sprites;
-	}
-	
-	private BufferedImage[] elSprites(final String[] foli, final String[] sprite) {
-		
-		final BufferedImage[] sprites = new BufferedImage[sprite.length];
-		final SpriteFoli[] folij = new SpriteFoli[foli.length];
-		
-		for(int i = 0; i < foli.length;i++)
-			folij[i] = new SpriteFoli("/blocks/map_" + foli[i] + ".png", 32, Transparency.OPAQUE);
-		
-		for(int i = 0; i < sprite.length; i++) {
+		}
+		for (int i = 0; i < objektarj.size(); i++) {
+			Objektar nunObjektar = objektarj.get(i);
 			
-			String[] tempSprite = sprite[i].split("_");
-			
-			sprites[i] = folij[Integer.parseInt(tempSprite[0])].spritejn(Integer.parseInt(tempSprite[1]),
-					Integer.parseInt(tempSprite[2]));
-			
+			int punktX = (int) Kvantperant.koordenadXalPosici(nunObjektar.posicin().x);
+			int punktY = (int) Kvantperant.koordenadYalPosici(nunObjektar.posicin().y);
+			for(int j = 0; j < nunObjektar.objektj().length; j++)
+			DebugDesegn.desegnBildn(nunObjektar.objektj()[j].spriten(),
+					punktX, punktY);
 		}
 		
-		return sprites;
+		for (int i = 0; i < vivazhar.size(); i++) {
+			vivazhar.get(i).desegn();
+		}
 	}
 	
-	private boolean[] elKolicijn(final String enhav) {
+	private JSONObject JSONObjektn(final String codigoJSON) {
+		JSONParser lector = new JSONParser();
+		JSONObject JSONObjekt = null;
 		
-		final boolean[] kolicij = new boolean[enhav.length()];
+		try {
+			JSONObjekt = (JSONObject) lector.parse(codigoJSON);
+		} catch(ParseException e) {
+			System.out.println("Posicio: " + e.getPosition());
+			System.out.println(e);
+		}
 		
-		for(int i = 0; i < enhav.length();i++)
-			if(enhav.charAt(i) == '0')
-				kolicij[i] = false;
-			else
-				kolicij[i] = true;
-		
-		return kolicij;
+		return JSONObjekt;
 	}
 	
-/*	public ArrayList<Rectangle> arejKolicin() {
-		return arejKolici;
-	}*/
+	private JSONArray JSONArrayn(final String codigoJSON) {
+		JSONParser lector = new JSONParser();
+		JSONArray arrayJSON = null;
+		
+		try {
+			arrayJSON = (JSONArray) lector.parse(codigoJSON);
+		} catch(ParseException e) {
+			System.out.println("Posicio: " + e.getPosition());
+			System.out.println(e);
+		}
+		
+		return arrayJSON;
+	}
 	
-	public BufferedImage[] spritesn() {
-		return spritear;
+	private int intAlJSONn(final JSONObject objektJSON, final String clave) {
+		return Integer.parseInt(objektJSON.get(clave).toString());
 	}
 	
 	public Rectangle margxen(final int x, final int y) {
-        int posicioX = (Konstantj.duonLudLargx - x + QefObjektj.ludant.largxVivazhn()) + Konstantj.SPRITELARGX;
-        int posicioY = (Konstantj.duonLudAlt - y + QefObjektj.ludant.altVivazhn()) + Konstantj.SPRITEALT;
+        int posiciX = (Konstantj.duonLudLargx - x + QefObjektj.ludant.largxVivazhn()) + Konstantj.SPRITELARGX;
+        int posiciY = (Konstantj.duonLudAlt - y + QefObjektj.ludant.altVivazhn()) + Konstantj.SPRITEALT;
 
-        int largx = (this.largx * Konstantj.SPRITELARGX - (Konstantj.SPRITELARGX * 3)) - QefObjektj.ludant.largxVivazhn() * 2;
-        int alt = (this.alt * Konstantj.SPRITEALT - (Konstantj.SPRITEALT * 3)) - QefObjektj.ludant.altVivazhn() * 2;
-
-        return new Rectangle(posicioX, posicioY, largx, alt);
+        int largx = (this.tileeMaplargx*Konstantj.SPRITELARGX - (Konstantj.SPRITELARGX * 3)) -
+        		QefObjektj.ludant.largxVivazhn()*2;
+        int alt = (this.tileeMapalt * Konstantj.SPRITEALT - (Konstantj.SPRITEALT*3)) -
+        		QefObjektj.ludant.altVivazhn()*2;
+        
+        return new Rectangle(posiciX, posiciY, largx, alt);
 	}
-	
-	public int xLudantn() {
-		return xLudant;
-	}
-	public int yLudantn() {
-		return yLudant;
-	}
-	public Rectangle arejVenontMapn() {
-		return arejVenontMap;
-	}
-	public int venontMapn() {
-		return venontMap;
-	}
-	
 }

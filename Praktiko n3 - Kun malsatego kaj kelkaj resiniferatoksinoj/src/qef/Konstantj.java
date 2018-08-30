@@ -29,8 +29,11 @@ public abstract class Konstantj {
 	
 	public static int nunlargxFenestr = plejfenestrLargx, nunaltFenestr = plejfenestrAlt;
 	
-	public static double faktorX = (double) plejfenestrLargx / (double) ludLargx;
-	public static double faktorY = (double) plejfenestrAlt / (double) ludAlt;
+	public static double faktorX = ((int) ((double) plejfenestrLargx/(double) ludLargx*10d))/10d;
+//	public static double faktorY = Double.parseDouble(String.format("%.1f", (double) plejfenestrAlt/(double) ludAlt));
+	public static double faktorY = ((int) ((double) plejfenestrAlt/(double) ludAlt*10d))/10d;
+//	public static double faktorY = 1;
+//	public static double faktorX = 1;
 	
 	public static int duonLudLargx = ludLargx>>1;
 	public static int duonLudAlt = ludAlt>>1;
@@ -56,6 +59,7 @@ public abstract class Konstantj {
 	
 	public final static String SUFIX_MAP = ".egam";
 	public final static String ITENER_MAP = "/maps/";
+	public final static String ITENER_TILESET_MAP = "/blocks/";
 
 	public final static String ITENER_VIVAZH = "/entities/";
 	public final static String ITENER_LUDANT = ITENER_VIVAZH + "player_";

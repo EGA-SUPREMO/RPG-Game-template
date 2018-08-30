@@ -29,7 +29,34 @@ public class Zombi extends Vivazh {
 				QefObjektj.ludant.largxVivazh/2, (int) y + QefObjektj.ludant.altVivazh/2, (int) QefObjektj.ludant.x,
 				(int) QefObjektj.ludant.y)/Konstantj.SPRITEFLANK), (int) posiciX, (int) posiciY - 7);
 	}
-
+	
+	@Override
+	public void gxisdatig() {
+    	if (venontNod == null) {
+    		return;
+    	}
+    	double velocidad = 0.5;
+    	
+    	int xSiguienteNodo = venontNod.posicin().x * Konstantj.SPRITEFLANK;
+    	int ySiguienteNodo = venontNod.posicin().y * Konstantj.SPRITEFLANK;
+    	
+    	if (x < xSiguienteNodo) {
+    		x += velocidad;
+    	}
+    	
+    	if (x > xSiguienteNodo) {
+    		x -= velocidad;
+    	}
+    	
+    	if (y < ySiguienteNodo) {
+    		y += velocidad;
+    	}
+    	
+    	if (y > ySiguienteNodo) {
+    		y -= velocidad;
+    	}
+	}
+	
 	@Override
 	public void setX(final int x) {
 		super.setX(x);

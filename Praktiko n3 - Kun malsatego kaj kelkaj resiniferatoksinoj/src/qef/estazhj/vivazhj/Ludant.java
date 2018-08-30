@@ -26,19 +26,19 @@ public class Ludant extends Vivazh {
 	
 	public Ludant() {
 		super(0, 4, senarmatludantsprite);
-		
-		this.x = QefObjektj.map.xLudantn();
-		this.y = QefObjektj.map.yLudantn();
+
+		this.x = QefObjektj.map.komencpunktX;
+		this.y = QefObjektj.map.komencpunktY;
 		largxVivazh = 16;
 		altVivazh = 16;
 		
-		this.LIMJ[0] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt - altVivazh,
+		LIMJ[0] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt - altVivazh,
 				Konstantj.SPRITELARGX - 2, 1);
-		this.LIMJ[1] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt + altVivazh - 1,
+		LIMJ[1] = new Rectangle(Konstantj.duonLudLargx - largxVivazh + 1, Konstantj.duonLudAlt + altVivazh - 1,
 				Konstantj.SPRITELARGX - 2, 1);
-		this.LIMJ[2] = new Rectangle(Konstantj.duonLudLargx - largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
+		LIMJ[2] = new Rectangle(Konstantj.duonLudLargx - largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
 				Konstantj.SPRITEALT - 2);
-		this.LIMJ[3] = new Rectangle(Konstantj.duonLudLargx + largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
+		LIMJ[3] = new Rectangle(Konstantj.duonLudLargx + largxVivazh, Konstantj.duonLudAlt - altVivazh + 1, 1,
 				Konstantj.SPRITEALT - 2);
 	}
 	
