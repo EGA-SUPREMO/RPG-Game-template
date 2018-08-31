@@ -7,12 +7,17 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 
 public class YargxilAzhj {
 	
@@ -118,4 +123,20 @@ public class YargxilAzhj {
 		return font;
 	}
 	
+	public static Clip yargxSonn(final String itener) {
+		Clip clip = null;
+		
+		try {
+			InputStream is = ClassLoader.class.getResourceAsStream(itener);
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+			DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
+			clip = (Clip) AudioSystem.getLine(info);
+			clip.open(ais);
+			//OJO NO FUNCIONA CON OPENJDK Y PULSEAUDIO EN NUCLEOS UBUNTU
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return clip;
+	}
 }

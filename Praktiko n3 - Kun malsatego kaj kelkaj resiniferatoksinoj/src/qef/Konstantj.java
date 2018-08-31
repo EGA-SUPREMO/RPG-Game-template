@@ -52,7 +52,8 @@ public abstract class Konstantj {
 	public final static int REKOMENCI = KeyEvent.VK_R;
 	public final static int DEBUG = KeyEvent.VK_F1;
 	public final static int AKTIV_INVENTARI = KeyEvent.VK_E;
-	public final static int QKOLEKTE = KeyEvent.VK_C;
+	public final static int QKOLEKT = KeyEvent.VK_C;
+	public final static int ATAKI = KeyEvent.VK_SPACE;
 	
 	public static int qiufps = 0, fps = 0, aps = 0, sekundjPasita = 0;
 	public static boolean qyangxSpriteFoli = false;
@@ -70,6 +71,9 @@ public abstract class Konstantj {
 	public final static String ITENER_OBJEKT_ARMIL = ITENER_OBJEKTJ + "weapons/";
 	
 	public final static String ITENER_OBJEKT_OBJEKTAR = ITENER_OBJEKTJ + "sack.png";
+
+	public final static String ITENER_SONJ = "/sounds/";
+	public final static String ITENER_SONJ_LUDANT = ITENER_SONJ + "player/";
 
 	public final static Font KUTIM_FONT = YargxilAzhj.yargxFontn("/Arvin Regular.ttf");
 	

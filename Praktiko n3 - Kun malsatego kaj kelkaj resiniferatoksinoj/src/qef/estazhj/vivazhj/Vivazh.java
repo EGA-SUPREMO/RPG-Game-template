@@ -414,5 +414,14 @@ public abstract class Vivazh implements Estazh {
 	public void setVenontNodn(final Nod nod) {
 		venontNod = nod;
 	}
+
+	public void perderVida(float ataqueRecibido) {
+        if (viv - ataqueRecibido < 0) {
+            viv = 0;
+         
+        } else {
+            viv -= ataqueRecibido;
+        }
+	}
 	
 }

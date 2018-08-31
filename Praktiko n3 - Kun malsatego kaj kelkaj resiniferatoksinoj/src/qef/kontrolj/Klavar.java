@@ -17,6 +17,7 @@ public class Klavar extends KeyAdapter {
 	public boolean debug = false;
 	public boolean aktivInventari = false;
 	public boolean qkolekt = false;
+	public boolean qatak = false;
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -42,8 +43,11 @@ public class Klavar extends KeyAdapter {
 			case Konstantj.AKTIV_INVENTARI:
 				aktivInventari = !aktivInventari;
 				break;
-			case Konstantj.QKOLEKTE:
+			case Konstantj.QKOLEKT:
 				qkolekt = true;
+				break;
+			case Konstantj.ATAKI:
+				qatak = true;
 				break;
 		}
 	}
@@ -74,8 +78,11 @@ public class Klavar extends KeyAdapter {
 				QefObjektj.ludant.setY(280);
 				Text.RES.mlnuligKvantn();
 				break;
-			case Konstantj.QKOLEKTE:
+			case Konstantj.QKOLEKT:
 				qkolekt = false;
+				break;
+			case Konstantj.ATAKI:
+				qatak = false;
 				break;
 		}
 	}
