@@ -11,6 +11,7 @@ public class Inventar {
 	
 	public Inventar() {
 		objektj = new ArrayList<>();
+		objektj.add(Objektregistril.objektjn(500));
 	}
 	
 	public boolean pliigObjekt(final Objekt objekt, final int kvant) {

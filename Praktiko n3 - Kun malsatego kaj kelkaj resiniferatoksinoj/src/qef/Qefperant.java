@@ -1,6 +1,7 @@
 package qef;
 
 import qef.grafikj.Fenestr;
+import qef.son.Son;
 
 public class Qefperant {
 	
@@ -9,10 +10,19 @@ public class Qefperant {
 	private String titol;
 	
 //	private Fenestr fenestr;
+	private Son fonmuzik;
 	
 	public static void main(String[] args) {
 		//Nur por OpenGL en Mac/Linux
 		//System.setProperty("sun.java2d.opengl", "True");
+		
+		/*
+		 * Para Directx en Windows
+		 * System.setProperty("sun.java2d.d3d", "True");
+		 * System.setProperty("sun.java2d.ddforcevram", "True");
+		 */
+		
+		//System.setProperty("sun.java2d.transaccel", "True");
 		Qefperant qp = new Qefperant("Kun malsatego kaj kelkaj resiniferatoksinoj...", Konstantj.plejfenestrLargx,
 			Konstantj.plejfenestrAlt);
 		
@@ -40,9 +50,11 @@ public class Qefperant {
 		funkciante = true;
 		
 		definigad();
+		fonmuzik.loop();
 	}
 	
 	private void definigad() {
+		fonmuzik = new Son(Konstantj.ITENER_SONJ_LUDANT + "pom.wav");
 		new Fenestr(titol);
 	}
 	

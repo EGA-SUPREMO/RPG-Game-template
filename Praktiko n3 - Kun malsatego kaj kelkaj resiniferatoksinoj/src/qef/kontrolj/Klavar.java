@@ -71,7 +71,7 @@ public class Klavar extends KeyAdapter {
 				kuri = false;
 				break;
 			case Konstantj.ELIRI:
-				System.exit(0);
+				elir();
 				break;
 			case Konstantj.REKOMENCI:
 				QefObjektj.ludant.setX(480);
@@ -85,6 +85,10 @@ public class Klavar extends KeyAdapter {
 				qatak = false;
 				break;
 		}
+	}
+	
+	public void elir() {
+		System.exit(0);
 	}
 	
 }

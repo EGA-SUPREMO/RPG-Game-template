@@ -26,4 +26,8 @@ public class Son {
 		son.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 	
+	public long longsonn() {
+		return son.getMicrosecondLength();
+	}
+	
 }

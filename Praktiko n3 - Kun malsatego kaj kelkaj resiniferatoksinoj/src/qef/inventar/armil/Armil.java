@@ -19,19 +19,24 @@ public abstract class Armil extends Objekt {
 	
 	protected int plejatak;
 	protected int mlplejatak;
-	public Son sonidoDisparo;
+	public Son pafson;
     protected boolean automatica;
     protected boolean penetrante;
     protected double ataquesPorSegundo;
     protected int actualizacionesParaSiguienteAtaque;
 	
 	public Armil(final int id, final String nomo, final String priskribo, final int plejatako,
-			final int mlplejatako) {
+			final int mlplejatako, final boolean automatica, final boolean penetrante,
+			final double ataquesPorSegundo, final String itenerson) {
 		super(id, nomo, priskribo);
 
 		plejatak = plejatako;
 		mlplejatak = mlplejatako;
-		
+		this.automatica = automatica;
+		this.penetrante = penetrante;
+		this.ataquesPorSegundo = ataquesPorSegundo;
+		actualizacionesParaSiguienteAtaque = 0;
+		pafson = new Son(itenerson);
 	}
 	
 	@Override
@@ -47,27 +52,28 @@ public abstract class Armil extends Objekt {
         }
 	}
 	
-	public void atacar(final ArrayList<Vivazh> enemigos) {
-		
+	public void atak(final ArrayList<Vivazh> vivazhj) {
 		if (actualizacionesParaSiguienteAtaque > 0)  {
 			return;
 		}
 		actualizacionesParaSiguienteAtaque = (int) (ataquesPorSegundo * 60);
 		
-		sonidoDisparo.play();
+		pafson.play();
 		
-		if (enemigos.isEmpty()) {
+		if (vivazhj.isEmpty()) {
 			return;
 		}
-	
-		float ataqueActual = obtenerAtaqueMedio();
-	
-		for (Vivazh enemigo : enemigos) {
-			enemigo.perderVida(ataqueActual);
+		
+		for (Vivazh vivazh : vivazhj) {
+			vivazh.malgajnVivn(atakkvantn());
 		}
 	}
 	
-	private float obtenerAtaqueMedio() {
+	private int atakkvantn() {
         return new Random().nextInt(plejatak - mlplejatak) + mlplejatak;
+	}
+	
+	public boolean penetranten() {
+		return penetrante;
 	}
 }

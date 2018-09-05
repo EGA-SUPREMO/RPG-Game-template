@@ -1,9 +1,12 @@
 package qef.dijkstra;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 import qef.Konstantj;
+import qef.ilj.DebugDesegn;
+import qef.ilj.Kvantperant;
 
 public class Nod {
 	
@@ -13,6 +16,12 @@ public class Nod {
 	public Nod(final Point posicio, final double distanco) {
 		posici = posicio;
 		distanc = distanco;
+	}
+	
+	public void desegn() {
+		DebugDesegn.desegnString(String.format("%.2f", distanc),
+				(int) Kvantperant.koordenadXalekranPosicin(posici.x*Konstantj.SPRITEFLANK),
+				(int) Kvantperant.koordenadYalekranPosicin(posici.y*Konstantj.SPRITEFLANK + 15), Color.ORANGE);
 	}
 	
 	public Rectangle pixeleAre() {

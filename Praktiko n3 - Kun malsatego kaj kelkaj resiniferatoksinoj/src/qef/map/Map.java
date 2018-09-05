@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -22,6 +23,8 @@ import qef.ilj.YargxilAzhj;
 import qef.inventar.Objekt;
 import qef.inventar.Objektar;
 import qef.inventar.Objektregistril;
+import qef.inventar.armil.Senarma;
+import qef.kontrolj.Kontrolperant;
 import qef.sprite.SpriteFoli;
 
 public class Map {
@@ -201,9 +204,9 @@ public class Map {
 		gxisdatigObjektkolektad();
 		
 		gxisdatigVivazhjn();
-		
+		gxisdatigAtakjn();
 	}
-	
+
 	private void gxisdatigArejKolicin() {
 		if (!gxisdatigitArejKolici.isEmpty()) {
 			gxisdatigitArejKolici.clear();
@@ -212,8 +215,8 @@ public class Map {
 		for (int i = 0; i < arejKolici.size(); i++) {
 			Rectangle nunRectangle = arejKolici.get(i);
 			
-			gxisdatigitArejKolici.add(new Rectangle((int) Kvantperant.koordenadXalPosici(nunRectangle.x),
-					(int) Kvantperant.koordenadYalPosici(nunRectangle.y), nunRectangle.width, nunRectangle.height));
+			gxisdatigitArejKolici.add(new Rectangle((int) Kvantperant.koordenadXalekranPosicin(nunRectangle.x),
+					(int) Kvantperant.koordenadYalekranPosicin(nunRectangle.y), nunRectangle.width, nunRectangle.height));
 		}
 	}
 	
@@ -245,25 +248,77 @@ public class Map {
 				vivazh.gxisdatig();
 			}	
 			
-			Point koincidatPunkt = d.koordinatjDeKoincidatNodDeLudantn((int)QefObjektj.ludant.xn(), (int)
-					QefObjektj.ludant.yn());
+			Point koincidatPunkt = d.koordinatjDeKoincidatNodDeLudantn(
+					(int) QefObjektj.ludant.xn() + (QefObjektj.ludant.largxVivazhn()>>1),
+					(int) QefObjektj.ludant.yn() + (QefObjektj.ludant.altVivazhn()>>1));
 			d.rekomencKajTask(koincidatPunkt);
 		}	
 		
 	}
-	
+
+	private void gxisdatigAtakjn() {
+		if (QefObjektj.ludant.nunatingecn().isEmpty()
+				|| QefObjektj.ludant.vivazharmilarn().armil1n() instanceof Senarma) {
+			return;
+		}
+		
+		if (Kontrolperant.klavar.qatak) {
+			ArrayList<Vivazh> enemigosAlcanzados = new ArrayList<>();
+			
+			if (QefObjektj.ludant.vivazharmilarn().armil1n().penetranten()) {
+				for (Vivazh vivazh : vivazhar) {
+					if (QefObjektj.ludant.nunatingecn().get(0).intersects(vivazh.nunposiciare())) {
+						enemigosAlcanzados.add(vivazh);
+					}
+				}
+			} else {
+				Vivazh enemigoMasCercano = null;
+				Double distanciaMasCercana = null;
+				
+				for (Vivazh vivazh : vivazhar) {
+					if (QefObjektj.ludant.nunatingecn().get(0).intersects(vivazh.nunposiciare())) {
+						
+						Double distanciaActual = Kvantperant.kakulDistancn((int) QefObjektj.ludant.xn(),
+								(int) QefObjektj.ludant.yn(), (int) vivazh.xn(), (int) vivazh.yn());
+						
+						if (enemigoMasCercano == null) {
+							enemigoMasCercano = vivazh;
+							distanciaMasCercana = distanciaActual;
+						} else if (distanciaActual < distanciaMasCercana) {
+							enemigoMasCercano = vivazh;
+							distanciaMasCercana = distanciaActual;
+						}
+					
+					}
+				}
+				if(enemigoMasCercano!=null)
+					enemigosAlcanzados.add(enemigoMasCercano);
+			}
+			QefObjektj.ludant.vivazharmilarn().armil1n().atak(enemigosAlcanzados);
+		}
+		
+		Iterator<Vivazh> iterador = vivazhar.iterator();
+		
+		while (iterador.hasNext()) {
+			Vivazh enemigo = iterador.next();
+			
+			if (enemigo.vivn() <= 0) {
+				iterador.remove();
+			}
+		}
+	}
 	public void desegn() {
 		for (int i = 0; i < spritetavolj.size(); i++) {
 			int[] spritesCapa = spritetavolj.get(i).obtenerArraySprites();
 			
 			for (int y = 0; y < tileeMapalt; y++) {
 				for (int x = 0; x < tileeMaplargx; x++) {
-					int idSpriteActual = spritesCapa[x + y * tileeMaplargx];
-					if (idSpriteActual != -1) {
-						int punktX = (int) Kvantperant.koordenadXalPosici(x * Konstantj.SPRITEFLANK);
-						int punktY = (int) Kvantperant.koordenadYalPosici(y * Konstantj.SPRITEFLANK);
+					int nunSpriteId = spritesCapa[x + y * tileeMaplargx];
+					if (nunSpriteId != -1) {
+						int punktX = (int) Kvantperant.koordenadXalekranPosicin(x * Konstantj.SPRITEFLANK);
+						int punktY = (int) Kvantperant.koordenadYalekranPosicin(y * Konstantj.SPRITEFLANK);
 						
-						DebugDesegn.desegnBildn(paletrsprite[idSpriteActual], punktX, punktY);
+						DebugDesegn.desegnBildn(paletrsprite[nunSpriteId], punktX, punktY);
 					}
 				}
 			}
@@ -271,8 +326,8 @@ public class Map {
 		for (int i = 0; i < objektarj.size(); i++) {
 			Objektar nunObjektar = objektarj.get(i);
 			
-			int punktX = (int) Kvantperant.koordenadXalPosici(nunObjektar.posicin().x);
-			int punktY = (int) Kvantperant.koordenadYalPosici(nunObjektar.posicin().y);
+			int punktX = (int) Kvantperant.koordenadXalekranPosicin(nunObjektar.posicin().x);
+			int punktY = (int) Kvantperant.koordenadYalekranPosicin(nunObjektar.posicin().y);
 			for(int j = 0; j < nunObjektar.objektj().length; j++)
 			DebugDesegn.desegnBildn(nunObjektar.objektj()[j].spriten(),
 					punktX, punktY);
@@ -281,14 +336,17 @@ public class Map {
 		for (int i = 0; i < vivazhar.size(); i++) {
 			vivazhar.get(i).desegn();
 		}
+		if(!QefObjektj.ludant.nunatingecn().isEmpty()) {
+			DebugDesegn.desegnString(QefObjektj.ludant.nunatingecn().get(0).toString(), 300, 200);
+		}
 	}
 	
-	private JSONObject JSONObjektn(final String codigoJSON) {
+	private JSONObject JSONObjektn(final String JSONkod) {
 		JSONParser lector = new JSONParser();
 		JSONObject JSONObjekt = null;
 		
 		try {
-			JSONObjekt = (JSONObject) lector.parse(codigoJSON);
+			JSONObjekt = (JSONObject) lector.parse(JSONkod);
 		} catch(ParseException e) {
 			System.out.println("Posicio: " + e.getPosition());
 			System.out.println(e);
@@ -297,18 +355,18 @@ public class Map {
 		return JSONObjekt;
 	}
 	
-	private JSONArray JSONArrayn(final String codigoJSON) {
+	private JSONArray JSONArrayn(final String JSONkod) {
 		JSONParser lector = new JSONParser();
-		JSONArray arrayJSON = null;
+		JSONArray JSONArray = null;
 		
 		try {
-			arrayJSON = (JSONArray) lector.parse(codigoJSON);
+			JSONArray = (JSONArray) lector.parse(JSONkod);
 		} catch(ParseException e) {
 			System.out.println("Posicio: " + e.getPosition());
 			System.out.println(e);
 		}
 		
-		return arrayJSON;
+		return JSONArray;
 	}
 	
 	private int intAlJSONn(final JSONObject objektJSON, final String clave) {
@@ -325,5 +383,9 @@ public class Map {
         		QefObjektj.ludant.altVivazhn()*2;
         
         return new Rectangle(posiciX, posiciY, largx, alt);
+	}
+	
+	public Dijkstra dijkstran() {
+		return d;
 	}
 }

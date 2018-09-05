@@ -27,8 +27,8 @@ public class Objektar {
 	}
 
 	public void desegn() {
-		DebugDesegn.desegnBildn(sprite, (int) Kvantperant.koordenadXalPosici(posici.x*Konstantj.SPRITEFLANK),
-				(int) Kvantperant.koordenadYalPosici(posici.y*Konstantj.SPRITEFLANK));
+		DebugDesegn.desegnBildn(sprite, (int) Kvantperant.koordenadXalekranPosicin(posici.x*Konstantj.SPRITEFLANK),
+				(int) Kvantperant.koordenadYalekranPosicin(posici.y*Konstantj.SPRITEFLANK));
 	}
 	
 	public Point posicin() {

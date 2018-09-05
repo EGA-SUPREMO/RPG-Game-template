@@ -8,16 +8,19 @@ import java.awt.event.KeyEvent;
 import qef.ilj.YargxilAzhj;
 
 public abstract class Konstantj {
-	
+
 	public static final int SPRITEFLANK = 32;
 	public static final int SPRITELARGX = 32;
 	public static final int SPRITEALT = 32;
+	
+	public static final int DUONSPRITEFLANK = SPRITEFLANK>>1;
+	public static final int DUONSPRITELARGX = SPRITELARGX>>1;
+	public static final int DUONSPRITEALT = SPRITEALT>>1;
 	
 	public static final int KVANT_KONSUMEBL_OBJEKT = 500;
 	
 	public static int plejRestarigad = 150;
 	public static int plejResistenc = 750;
-	
 
 	public static int ludLargx = 640;
 	public static int ludAlt = 360;
@@ -38,8 +41,8 @@ public abstract class Konstantj {
 	public static int duonLudLargx = ludLargx>>1;
 	public static int duonLudAlt = ludAlt>>1;
 
-	public static int altCentr = duonLudAlt - (SPRITEALT >> 1);
-	public static int largxCentr = duonLudLargx - (SPRITELARGX >> 1);
+	public static int altCentr = duonLudAlt - DUONSPRITEALT;
+	public static int largxCentr = duonLudLargx - DUONSPRITELARGX;
 	
 	public final static int nombroKlablj = 256;
 	
@@ -51,9 +54,10 @@ public abstract class Konstantj {
 	public final static int ELIRI = KeyEvent.VK_ESCAPE;
 	public final static int REKOMENCI = KeyEvent.VK_R;
 	public final static int DEBUG = KeyEvent.VK_F1;
-	public final static int AKTIV_INVENTARI = KeyEvent.VK_E;
 	public final static int QKOLEKT = KeyEvent.VK_C;
 	public final static int ATAKI = KeyEvent.VK_SPACE;
+	public static final int AKTIV_INVENTARI = KeyEvent.VK_E;
+	public final static int GRANDECFENESTR = KeyEvent.VK_F10;
 	
 	public static int qiufps = 0, fps = 0, aps = 0, sekundjPasita = 0;
 	public static boolean qyangxSpriteFoli = false;
@@ -73,7 +77,7 @@ public abstract class Konstantj {
 	public final static String ITENER_OBJEKT_OBJEKTAR = ITENER_OBJEKTJ + "sack.png";
 
 	public final static String ITENER_SONJ = "/sounds/";
-	public final static String ITENER_SONJ_LUDANT = ITENER_SONJ + "player/";
+	public final static String ITENER_SONJ_LUDANT = "player/";
 
 	public final static Font KUTIM_FONT = YargxilAzhj.yargxFontn("/Arvin Regular.ttf");
 	

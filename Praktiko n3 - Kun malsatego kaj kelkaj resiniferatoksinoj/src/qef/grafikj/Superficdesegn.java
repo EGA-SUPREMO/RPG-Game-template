@@ -5,13 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import qef.Konstantj;
 import qef.QefObjektj;
+import qef.dijkstra.Nod;
 import qef.ilj.DebugDatum;
 import qef.ilj.DebugDesegn;
+import qef.ilj.Kvantperant;
 import qef.ilj.StringKvantil;
 import qef.kontrolj.Kontrolperant;
 import qef.kontrolj.Muy;
@@ -71,29 +74,46 @@ public class Superficdesegn extends Canvas {
 		DebugDesegn.desegnString("APS: " + Konstantj.aps, 10, 20);
 		DebugDesegn.desegnString("FPS: " + Konstantj.fps, 10, 30);
 		
-		DebugDatum.addDatumn("X: " + QefObjektj.ludant.xn());
-		DebugDatum.addDatumn("Y: " + QefObjektj.ludant.yn());
-		DebugDatum.addDatumn("Sekundoj pasitaj: " + Konstantj.sekundjPasita);
-		try {
-		DebugDatum.addDatumn("Promedio de fps po sekundo: " + Konstantj.qiufps/Konstantj.sekundjPasita);
-		}catch(ArithmeticException e) {/*e.printStackTrace();*/}
-		DebugDatum.addDatumn("Res: " + Text.RES.kvantn());
-		DebugDatum.addDatumn("Restarigado: " + QefObjektj.ludant.restarigadn());
-		DebugDatum.addDatumn("Faktoro X: " + Konstantj.faktorX);
-		DebugDatum.addDatumn("Faktoro Y: " + Konstantj.faktorY);
-/*		DebugDatum.addDatumn("Venonta mapo: " + QefObjektj.map.venontMapn());
-		DebugDatum.addDatumn("Komenca posicio X: " + QefObjektj.map.xLudantn());
-		DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.map.yLudantn());*/
-		DebugDatum.addDatumn("OPF: " + DebugDesegn.objektjDesegnitan());
-		
-		DebugDatum.addDatumn("RX: " + muy.posicin().x);
-		DebugDatum.addDatumn("RY: " + muy.posicin().y);
-		DebugDatum.addDatumn("Reskalita RX: " + muy.rectangleReskalitPosicin().x);
-		DebugDatum.addDatumn("Reskalita RY: " + muy.rectangleReskalitPosicin().y);
-		
 		if(Kontrolperant.klavar.debug) {
-			if(sp.qStatludn())
+			DebugDatum.addDatumn("X: " + QefObjektj.ludant.xn());
+			DebugDatum.addDatumn("Y: " + QefObjektj.ludant.yn());
+			DebugDatum.addDatumn("Sekundoj pasitaj: " + Konstantj.sekundjPasita);
+			try {
+			DebugDatum.addDatumn("Promedio de fps po sekundo: " + Konstantj.qiufps/Konstantj.sekundjPasita);
+			}catch(ArithmeticException e) {/*e.printStackTrace();*/}
+			DebugDatum.addDatumn("Res: " + Text.RES.kvantn());
+			DebugDatum.addDatumn("Faktoro X: " + Konstantj.faktorX);
+			DebugDatum.addDatumn("Faktoro Y: " + Konstantj.faktorY);
+	/*		DebugDatum.addDatumn("Venonta mapo: " + QefObjektj.map.venontMapn());
+			DebugDatum.addDatumn("Komenca posicio X: " + QefObjektj.map.xLudantn());
+			DebugDatum.addDatumn("Komenca posicio Y: " + QefObjektj.map.yLudantn());*/
+			
+			DebugDatum.addDatumn("RX: " + muy.posicin().x);
+			DebugDatum.addDatumn("RY: " + muy.posicin().y);
+			DebugDatum.addDatumn("Reskalita RX: " + muy.rectangleReskalitPosicin().x);
+			DebugDatum.addDatumn("Reskalita RY: " + muy.rectangleReskalitPosicin().y);
+			
+			if(sp.qStatludn()) {
 				DebugDesegn.desegnKolicijn();
+			
+				for(Nod nun: QefObjektj.map.dijkstran().taskitjn())
+					nun.desegn();
+				
+				for(int i = 0; i < QefObjektj.map.vivazhar.size(); i++)
+					if(QefObjektj.map.vivazhar.get(i).venontNodn()!=null)
+						DebugDesegn.desegnMargxenRectangle(
+								(int) Kvantperant.koordenadXalekranPosicin(QefObjektj.map.vivazhar.get(i).venontNodn()
+										.posicin().x*Konstantj.SPRITEFLANK),
+								(int) Kvantperant.koordenadYalekranPosicin(QefObjektj.map.vivazhar.get(i).venontNodn()
+										.posicin().y*Konstantj.SPRITEFLANK),
+			    				Konstantj.SPRITEFLANK, Konstantj.SPRITEFLANK, Color.GREEN);
+				
+				for(Rectangle nun:QefObjektj.ludant.nunatingecn())
+					DebugDesegn.desegnRectangle((int) Kvantperant.koordenadXalekranPosicin(nun.x),
+							(int) Kvantperant.koordenadYalekranPosicin(nun.y), nun.width, nun.height);
+			}
+			
+			DebugDatum.addDatumn("OPF: " + DebugDesegn.objektjDesegnitan());
 			DebugDatum.desegn();
 		}
 		

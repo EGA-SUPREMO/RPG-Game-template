@@ -25,7 +25,7 @@ public class Ludant extends Vivazh {
 	//public static final SpriteFoli lol = SpriteFoliregistril.KreZombiSpriteFolin(0);
 	
 	public Ludant() {
-		super(0, 4, senarmatludantsprite);
+		super(0, 4, senarmatludantsprite, Konstantj.ITENER_SONJ_LUDANT + "pom.wav");
 
 		this.x = QefObjektj.map.komencpunktX;
 		this.y = QefObjektj.map.komencpunktY;
@@ -44,7 +44,7 @@ public class Ludant extends Vivazh {
 	
 	@Override
 	public void gxisdatig() {
-		kalkulAtingecn();
+		gxisdatigArmiljn();
 		yangxMapn();
 		yangxResistencn();
 		yangxSpriten();
@@ -140,14 +140,13 @@ public class Ludant extends Vivazh {
 		}
 		
 	}
-	
-	private void kalkulAtingecn() {
-        if (vivazharmilar.armil1n() instanceof  Senarma) {
-            return;
-        }
-
-        nunatingec = vivazharmilar.armil1n().atingec(this);
-    }
+	private void gxisdatigArmiljn() {
+		if(vivazharmilar.armil1n() instanceof Senarma)
+			return;
+		
+		vivazharmilar.armil1n().gxisdatig();
+		nunatingec = vivazharmilar.armil1n().atingec(this);
+	}
 
 	@Override
 	public void desegn() {

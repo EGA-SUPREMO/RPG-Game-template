@@ -50,7 +50,7 @@ public class Muy extends MouseAdapter {//Musxo
 	
 	private void gxisdatigPosicijn() {
 		final Point komencPosici = MouseInfo.getPointerInfo().getLocation();
-
+		
 		SwingUtilities.convertPointFromScreen(komencPosici, canvas);
 		
 		posici.setLocation(komencPosici);

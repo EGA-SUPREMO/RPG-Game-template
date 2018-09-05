@@ -88,8 +88,8 @@ public class DebugDesegn {
 		
 		for(Vivazh nun : QefObjektj.map.vivazhar)
 			for(int i = 0; i < nun.LIMJN().length; i++)
-				desegnMargxenRectangle((int) Kvantperant.koordenadXalPosici(nun.LIMJN()[i].x), 
-						(int) Kvantperant.koordenadYalPosici(nun.LIMJN()[i].y), nun.LIMJN()[i].width,
+				desegnMargxenRectangle((int) Kvantperant.koordenadXalekranPosicin(nun.LIMJN()[i].x), 
+						(int) Kvantperant.koordenadYalekranPosicin(nun.LIMJN()[i].y), nun.LIMJN()[i].width,
 						nun.LIMJN()[i].height);
 		
 	}

@@ -1,5 +1,6 @@
 package qef.ilj;
 
+import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 
@@ -23,11 +24,9 @@ public class DebugDatum {
 		int counter = 3;//jam estas desegnita la fps kaj aps
 		
 		while(it.hasNext()) {
-			
 			counter++;
 			
-			DebugDesegn.desegnString(it.next(), 10, counter * ALT_LITER);
-			
+			DebugDesegn.desegnString(it.next(), 10, counter * ALT_LITER, Color.BLUE);
 		}
 		
 	}
