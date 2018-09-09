@@ -9,8 +9,8 @@ public class Son {
 	
 	final private Clip son;
 	
-	public Son(final String itener) {
-		son = YargxilAzhj.yargxSonn(Konstantj.ITENER_SONJ + itener);
+	public Son(final String itener, final int mlplivolum) {
+		son = YargxilAzhj.yargxSonn(Konstantj.ITENER_SONJ + itener, mlplivolum);
 	}
 
 	public void play() {

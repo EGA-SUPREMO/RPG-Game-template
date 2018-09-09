@@ -86,7 +86,7 @@ public abstract class Vivazh implements Estazh {
 		vivazharmilar = new Vivazharmilar((Armil) Objektregistril.objektjn(599));
 		LIMJ = new Rectangle[limj];
 		
-		damagxit = new Son(itenerSon);
+		damagxit = new Son(itenerSon, 0);
 		longDamagxit = damagxit.longsonn();
 		
 		ordenBildj(ordenSpec, sprite.spritejn());
@@ -111,7 +111,7 @@ public abstract class Vivazh implements Estazh {
 		nunatingec = new ArrayList<>();
 		vivazharmilar = new Vivazharmilar((Armil) Objektregistril.objektjn(599));
 
-		damagxit = new Son(itenerSon);
+		damagxit = new Son(itenerSon, 0);
 		longDamagxit = damagxit.longsonn();
 		
 		ordenBildj(ordenSpec, sprite.spritejn());

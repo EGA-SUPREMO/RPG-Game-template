@@ -36,7 +36,7 @@ public abstract class Armil extends Objekt {
 		this.penetrante = penetrante;
 		this.ataquesPorSegundo = ataquesPorSegundo;
 		actualizacionesParaSiguienteAtaque = 0;
-		pafson = new Son(itenerson);
+		pafson = new Son(itenerson, 0);
 	}
 	
 	@Override

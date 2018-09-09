@@ -11,15 +11,15 @@ import qef.ilj.Kvantperant;
 public class Nod {
 	
 	private Point posici;
-	private double distanc;
+	private int distanc;
 	
-	public Nod(final Point posicio, final double distanco) {
+	public Nod(final Point posicio, final int distanco) {
 		posici = posicio;
 		distanc = distanco;
 	}
 	
 	public void desegn() {
-		DebugDesegn.desegnString(String.format("%.2f", distanc),
+		DebugDesegn.desegnString("" + distanc,
 				(int) Kvantperant.koordenadXalekranPosicin(posici.x*Konstantj.SPRITEFLANK),
 				(int) Kvantperant.koordenadYalekranPosicin(posici.y*Konstantj.SPRITEFLANK + 15), Color.ORANGE);
 	}
@@ -37,11 +37,11 @@ public class Nod {
 		return posici;
 	}
 	
-	public void setDistancn(final double distanco) {
+	public void setDistancn(final int distanco) {
 		distanc = distanco;
 	}
 	
-	public double distancn() {
+	public int distancn() {
 		return distanc;
 	}
 }

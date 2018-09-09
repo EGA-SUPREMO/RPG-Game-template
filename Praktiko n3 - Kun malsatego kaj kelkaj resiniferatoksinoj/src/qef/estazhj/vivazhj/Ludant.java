@@ -21,9 +21,6 @@ public class Ludant extends Vivazh {
 //			Transparency.TRANSLUCENT, 128);//TODO Mi eble unigos cxi tion en unu "array"
 	private static final SpriteFoli senarmatludantsprite = new SpriteFoli(Konstantj.ITENER_LUDANT + 0 + ".png", 32,
 			Transparency.TRANSLUCENT, 128);
-
-	//public static final SpriteFoli lol = SpriteFoliregistril.KreZombiSpriteFolin(0);
-	
 	public Ludant() {
 		super(0, 4, senarmatludantsprite, Konstantj.ITENER_SONJ_LUDANT + "pom.wav");
 

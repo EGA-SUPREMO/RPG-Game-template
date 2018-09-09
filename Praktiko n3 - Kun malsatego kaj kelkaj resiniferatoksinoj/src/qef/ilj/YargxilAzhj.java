@@ -18,6 +18,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 
 public class YargxilAzhj {
 	
@@ -123,7 +124,7 @@ public class YargxilAzhj {
 		return font;
 	}
 	
-	public static Clip yargxSonn(final String itener) {
+	public static Clip yargxSonn(final String itener, final int mlplivolum) {
 		Clip clip = null;
 		
 		try {
@@ -132,7 +133,10 @@ public class YargxilAzhj {
 			DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
 			clip = (Clip) AudioSystem.getLine(info);
 			clip.open(ais);
-			//OJO NO FUNCIONA CON OPENJDK Y PULSEAUDIO EN NUCLEOS UBUNTU
+			FloatControl gainControl = 
+				    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-mlplivolum);
+			//FIXME NO FUNCIONA CON OPENJDK Y PULSEAUDIO EN NUCLEOS UBUNTU
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

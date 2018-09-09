@@ -18,7 +18,7 @@ public class Dijkstra {
 	private ArrayList<Nod> taskitj;
 	
 	private boolean constructor = true;
-	private final double DIAGONAL_DISTANC = 1.424;
+	private final int DIAGONAL_DISTANC = 14;
 	
 	public Dijkstra(final Point centr, final int tileeMaplargx, final int tileeMapalt,
 			final ArrayList<Rectangle> arejKolici) {
@@ -44,7 +44,7 @@ public class Dijkstra {
 					continue;
 				}
 				
-				mapnodj.add(new Nod(new Point(x,y), Double.MAX_VALUE));
+				mapnodj.add(new Nod(new Point(x,y), Integer.MAX_VALUE));
 			}
 		}
 		netaskitj = new ArrayList<>(mapnodj);
@@ -73,7 +73,7 @@ public class Dijkstra {
 		ArrayList<Nod> nodosClonados = new ArrayList<>();
 		for (Nod nodo : mapnodj) {
 			Point posicion = nodo.posicin();
-			double distancia = nodo.distancn();
+			int distancia = nodo.distancn();
 			Nod nodoClonado = new Nod(posicion, distancia);
 			nodosClonados.add(nodoClonado);
 		}
@@ -88,7 +88,7 @@ public class Dijkstra {
 			} else {
 				netaskitj = new ArrayList<>(taskitj);
 				for (Nod nod : netaskitj) {
-					nod.setDistancn(Double.MAX_VALUE);
+					nod.setDistancn(Integer.MAX_VALUE);
 				}
 			}
 		}
@@ -101,7 +101,7 @@ public class Dijkstra {
 	private void definKalkulCentrnEnNetaskitj(final Point kalkulcentr) {
 		for (Nod nod : netaskitj) {
 			if (nod.posicin().equals(kalkulcentr)) {
-				nod.setDistancn(0.0);
+				nod.setDistancn(0);
 			}
 		}
 	}
@@ -113,7 +113,7 @@ public class Dijkstra {
 			for (Iterator<Nod> iterator = netaskitj.iterator(); iterator.hasNext();) {
 				Nod nod = iterator.next();
 				
-				if (nod.distancn() == Double.MAX_VALUE) {
+				if (nod.distancn() == Integer.MAX_VALUE) {
 					continue;
 				} else {
 					taskApudHewristikn(nod);
@@ -146,14 +146,14 @@ public class Dijkstra {
 				}
 				
 				//solo cambiamos la distancia si es transitable y si no ha sido cambiada
-				if (netaskitj.get(indexNod).distancn() == Double.MAX_VALUE - 1) {
+				if (netaskitj.get(indexNod).distancn() == Integer.MAX_VALUE - 1) {
 					
 					//distancia recta vs diagonal
-					double distanc;
+					int distanc;
 					if (nod.posicin().x != x && nod.posicin().y != y) {
 						distanc = DIAGONAL_DISTANC;
 					} else {
-						distanc = 1;
+						distanc = 10;
 					}
 					
 					netaskitj.get(indexNod).setDistancn(nod.distancn() + distanc);

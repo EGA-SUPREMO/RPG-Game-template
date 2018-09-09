@@ -29,9 +29,17 @@ import qef.sprite.SpriteFoli;
 
 public class Map {
 	
+	private int rangoX, rangoY;
+	private int limiteX, limiteY;
 	private int tileeMaplargx;
 	private int tileeMapalt;
+	
+	private static final int xAxenVideblTilej = (int) ((float)Konstantj.ludLargx/Konstantj.SPRITEFLANK + 2.99);
+	private static final int yAxenVideblTilej = (int) ((float)Konstantj.ludAlt/Konstantj.SPRITEFLANK + 0.99);
+	private static final int mldextrenVideblTilej = (int) ((float)(xAxenVideblTilej-2)/2 + 0.99);
+	private static final int suprenVideblTilej = (int) ((float)yAxenVideblTilej/2 + 0.99);
 
+	
 	public int komencpunktX;
 	public int komencpunktY;
 	
@@ -48,6 +56,16 @@ public class Map {
 	public ArrayList<Vivazh> vivazhar;
 
 	public Map(final int itener) {
+		rangoX = 0;
+		rangoY = 0;
+		limiteX = 0;
+		limiteY = 0;
+
+		System.out.println(xAxenVideblTilej);
+		System.out.println(yAxenVideblTilej);
+		System.out.println(mldextrenVideblTilej);
+		System.out.println(suprenVideblTilej);
+		
 		String enhav = YargxilAzhj.yargxTextn(Konstantj.ITENER_MAP + itener + ".tmx");
 		
 		final JSONObject globalJSON = JSONObjektn(enhav);
@@ -200,11 +218,23 @@ public class Map {
 	}
 	
 	public void gxisdatig() {
+		gxisdatigRangojn();
 		gxisdatigArejKolicin();
 		gxisdatigObjektkolektad();
 		
 		gxisdatigVivazhjn();
 		gxisdatigAtakjn();
+	}
+	
+	private void gxisdatigRangojn() {
+		if(QefObjektj.ludant.xn()/Konstantj.SPRITEFLANK-mldextrenVideblTilej>=0)
+			rangoX = (int) (QefObjektj.ludant.xn()/Konstantj.SPRITEFLANK-mldextrenVideblTilej);
+		if(QefObjektj.ludant.yn()/Konstantj.SPRITEFLANK-suprenVideblTilej>=0)
+			rangoY = (int) (QefObjektj.ludant.yn()/Konstantj.SPRITEFLANK-suprenVideblTilej);
+		if(rangoX+xAxenVideblTilej<=this.tileeMaplargx)
+			limiteX = rangoX+xAxenVideblTilej;
+		if(rangoY+yAxenVideblTilej<=this.tileeMapalt)
+			limiteY = rangoY+yAxenVideblTilej;
 	}
 
 	private void gxisdatigArejKolicin() {
@@ -252,8 +282,7 @@ public class Map {
 					(int) QefObjektj.ludant.xn() + (QefObjektj.ludant.largxVivazhn()>>1),
 					(int) QefObjektj.ludant.yn() + (QefObjektj.ludant.altVivazhn()>>1));
 			d.rekomencKajTask(koincidatPunkt);
-		}	
-		
+		}
 	}
 
 	private void gxisdatigAtakjn() {
@@ -311,8 +340,8 @@ public class Map {
 		for (int i = 0; i < spritetavolj.size(); i++) {
 			int[] spritesCapa = spritetavolj.get(i).obtenerArraySprites();
 			
-			for (int y = 0; y < tileeMapalt; y++) {
-				for (int x = 0; x < tileeMaplargx; x++) {
+			for (int y = rangoY; y < limiteY; y++) {
+				for (int x = rangoX; x < limiteX; x++) {
 					int nunSpriteId = spritesCapa[x + y * tileeMaplargx];
 					if (nunSpriteId != -1) {
 						int punktX = (int) Kvantperant.koordenadXalekranPosicin(x * Konstantj.SPRITEFLANK);

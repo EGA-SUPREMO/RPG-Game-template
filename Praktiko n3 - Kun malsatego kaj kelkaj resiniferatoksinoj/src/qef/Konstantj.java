@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import qef.ilj.YargxilAzhj;
 
 public abstract class Konstantj {
-
+	
 	public static final int SPRITEFLANK = 32;
 	public static final int SPRITELARGX = 32;
 	public static final int SPRITEALT = 32;
