@@ -60,11 +60,6 @@ public class Map {
 		rangoY = 0;
 		limiteX = 0;
 		limiteY = 0;
-
-		System.out.println(xAxenVideblTilej);
-		System.out.println(yAxenVideblTilej);
-		System.out.println(mldextrenVideblTilej);
-		System.out.println(suprenVideblTilej);
 		
 		String enhav = YargxilAzhj.yargxTextn(Konstantj.ITENER_MAP + itener + ".tmx");
 		

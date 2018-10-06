@@ -3,9 +3,12 @@ package qef.ilj;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.RenderingHints;
 
+import qef.Konstantj;
 import qef.QefObjektj;
 import qef.estazhj.vivazhj.Vivazh;
 
@@ -17,6 +20,19 @@ public class DebugDesegn {
 	public static void definigad(final Graphics gg) {
 		g = gg;
 		objektjDesegnita = 0;
+	}
+	public static void yangxGrafikn() {
+		if(Konstantj.altGrafik)
+			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+	}
+	public static void yangxGrafikn(final boolean altGrafik) {
+		if(altGrafik)
+			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+		else
+			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_OFF);
 	}
 	
 	public static void desegnString(final String str, final int x, final int y) {

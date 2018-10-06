@@ -11,9 +11,9 @@ import qef.ilj.Kvantperant;
 public class Nod {
 	
 	private Point posici;
-	private int distanc;
+	private double distanc;
 	
-	public Nod(final Point posicio, final int distanco) {
+	public Nod(final Point posicio, final double distanco) {
 		posici = posicio;
 		distanc = distanco;
 	}
@@ -37,11 +37,11 @@ public class Nod {
 		return posici;
 	}
 	
-	public void setDistancn(final int distanco) {
+	public void setDistancn(final double distanco) {
 		distanc = distanco;
 	}
 	
-	public int distancn() {
+	public double distancn() {
 		return distanc;
 	}
 }
