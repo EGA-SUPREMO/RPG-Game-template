@@ -1,8 +1,10 @@
 # RPG Game template
 
-This game is a simple RPG game, this is written in Esperanto, if this is a issue or you are interested let me know and I will translate to you.
+This game is a simple 2D RPG game, the code is written in Esperanto, if you're interested, let me know and I will translate for you.
 
-It a simple game where you can run, walk, pick up items, advance levels and have enemies that you can aim and kill, and they will follow you using a dijkstra algorithm in java.
+It a simple game where you can run, walk, pick up items, advance levels and have enemies that you can aim and kill, and they will follow you using a dijkstra algorithm in Java.
+
+It lacks of quests and needs a little improvement before it can be played by an average user.
 
 ## License
 
