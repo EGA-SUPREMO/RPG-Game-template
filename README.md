@@ -1,3 +1,6 @@
+![Code quality](https://www.code-inspector.com/project/7447/score/svg)
+![Code grade](https://www.code-inspector.com/project/7447/status/svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 # RPG Game template
 
 This is a template that can be extended to be a simple 2D RPG game, however the code is written in Esperanto, if you're interested, let me know and I will translate for you.
