@@ -1,10 +1,16 @@
+![Code quality](https://www.code-inspector.com/project/7447/score/svg)
+![Code grade](https://www.code-inspector.com/project/7447/status/svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 # RPG Game template
 Framework that makes building 2D games a breeze!
 ---
 
-It a simple game template where you can run, walk, pick up items, advance levels and have enemies that you can aim and kill, and they will follow you using a dijkstra algorithm.
-
 ![](https://github.com/EGA-SUPREMO/RPG-Game-template/blob/master/game.png)
+A template that can be extended to be a 2D game.
+
+It a simple game where you can run, walk, pick up items, advance levels and have enemies that you can aim and kill, and they will follow you using a dijkstra algorithm.
+
+It lacks of quests, levels, items and needs a improvement before it can be played by an average user.
 
 Similar to RPG games from 90's.
 
