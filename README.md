@@ -6,6 +6,7 @@ Framework that makes building 2D games a breeze!
 ---
 
 ![](https://github.com/EGA-SUPREMO/RPG-Game-template/blob/master/game.png)
+
 A template that can be extended to be a 2D game.
 
 It a simple game where you can run, walk, pick up items, advance levels and have enemies that you can aim and kill, and they will follow you using a dijkstra algorithm.
