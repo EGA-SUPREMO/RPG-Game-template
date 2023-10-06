@@ -1,5 +1,3 @@
-![Code quality](https://www.code-inspector.com/project/7447/score/svg)
-![Code grade](https://www.code-inspector.com/project/7447/status/svg)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 # RPG Game template
 Framework that makes building 2D games a breeze!
